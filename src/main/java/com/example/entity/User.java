@@ -1,6 +1,6 @@
 package com.example.entity;
 
-
+import java.util.*;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,6 +25,8 @@ public class User {
 	private String imgUrl;
 	@Column(length = 500)
 	private String about;
+	
+	private List<Contact> contacts = new ArrayList<>();
 	
 	public User() {
 		super();
@@ -94,7 +96,13 @@ public class User {
 		this.about = about;
 	}
 	
-	
+	public List<Contact> getContacts() {
+		return contacts;
+	}
+
+	public void setContacts(List<Contact> contacts) {
+		this.contacts = contacts;
+	}
 	
 	
 }
