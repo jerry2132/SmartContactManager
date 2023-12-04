@@ -1,33 +1,66 @@
 @charset "UTF-8";
 
 body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
+	/*background-image: linear-gradient(rgba(0,0,0,.8),rgba(0,0,0,.8)) , url("/images/tele.png");*/
+	font-family: Arial, sans-serif;
+	margin: 0;
+	background-color: #FFCC99;
+	background-size: cover;
+}
 
-        nav {
-            background-color: #333;
-            overflow: hidden;
-        }
-        
-         nav span {
-            float: left;
-            padding: 14px 16px;
-            color: white;
-            font-size: 18px; /* Adjust the font size as needed */
-        }
+nav {
+	background-color: #EC8565;
+	overflow: hidden;
+	height: 42px;
+}
 
-        nav a {
-            float: right;
-            display: block;
-            color: white;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-        }
+nav span {
+	float: left;
+	padding: 14px 16px;
+	color: black;
+	font-size: 18px; /* Adjust the font size as needed */
+}
 
-        nav a:hover {
-            background-color: #ddd;
-            color: black;
-        }
+nav a {
+	float: right;
+	display: block;
+	color: black;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+}
+
+h2 {
+	/*text-align: center;*/
+	color: #000000;
+	font-weight: bold;
+	/*margin: 0px 0px 200px 225px;*/
+	margin-top: 200px;
+	margin-left: 450px;
+}
+
+p {
+	color: #000000;
+	font-weight: bold;
+	/*margin: 0px 0px 200px 225px;*/
+	/*margin-top: 250px;*/
+	margin-left: 300px;
+	align-items: center;
+}
+
+input[type="button"] {
+	background-color: #000000;
+	/*background-color: rgba(0, 0, 0, 1);*/
+	color: #fff;
+	cursor: pointer;
+	font-weight: bold;
+	border-radius: 40px;
+	margin-left: 550px;
+}
+
+nav a:hover {
+	background-color: #EF2632;
+	color: black;
+	padding: 8px 10px;
+	border-radius: 20px;
+}
