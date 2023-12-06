@@ -18,21 +18,21 @@
 
 		<h2>FILL ALL DETAILS CORRECTLY...</h2>
 
-		<form th:action="@{/register}" method="post" th:object="${user}">
+		<form th:action="@{/signup}" method="post" th:object="${user}">
 			<label for="name">NAME </label> 
-			<input th:value="${user.name}" type="text" id="name"
+			<input th:field="${user.name}" type="text" id="name"
 				name="name" placeholder="enter your name" required> 
 				<label for="email">EMAIL </label> 
-				<input th:value="${user.email}" type="email" id="email" name="email" placeholder="enter your email" required> 
+				<input th:field="${user.email}" type="email" id="email" name="email" placeholder="enter your email" required> 
 				<label for="password">PASSWORD </label>
-				<input type="password" id="password" name="password" placeholder="enter your password"
+				<input th:field="${user.password}" type="password" id="password" name="password" placeholder="enter your password"
 				required> 
 				<label for="about">ABOUT </label>
-				<textarea th:value="${user.about}" id="about" name="about" placeholder="enter about yourself"
+				<textarea th:field="${user.about}" id="about" name="about" placeholder="enter about yourself"
 				rows="4"></textarea>
 
 			<div class="input-container">
-            <input type="checkbox" id="acceptTerms" name="acceptTerms" required>
+            <input th:field="${user.enabled}" type="checkbox" id="acceptTerms" name="enabled" required>
              <label for="acceptTerms">I accept the terms and conditions</label>
         	</div>
 

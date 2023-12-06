@@ -33,7 +33,9 @@ public class User {
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
 	private List<Contact> contacts = new ArrayList<>();
+
 	
+
 	public User() {
 		super();
 	}
@@ -110,11 +112,11 @@ public class User {
 		this.contacts = contacts;
 	}
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", role=" + role
-				+ ", enabled=" + enabled + ", imgUrl=" + imgUrl + ", about=" + about + ", contacts=" + contacts + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", role=" + role
+//				+ ", enabled=" + enabled + ", imgUrl=" + imgUrl + ", about=" + about + ", contacts=" + contacts + "]";
+//	}
 	
 	
 }
