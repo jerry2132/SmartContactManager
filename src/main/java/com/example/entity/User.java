@@ -11,6 +11,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "USER")
@@ -19,12 +24,24 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
+	
+	@NotEmpty(message ="UNABLE TO SAVE USER ,NAME IS REQUIRED")
+	@Size(min = 5, max = 30, message ="NAME MUST BE BETWEEN 2 AND 30")
 	private String name ;
 	
 	@Column(unique =true)
+	@NotEmpty(message = "UNABLE TO SAVE USER ,EMAIL IS REQUIRED")
+	@Email(message = "INVALID EMAIL FORMAT")
 	private String email;
+	
+	@NotEmpty(message ="UNABLE TO SAVE USER ,PASSWORD IS REQUIRED")
+	@Pattern(regexp= "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\\\d)(?=.*[@$!%*?&])[A-Za-z\\\\d@$!%*?&]{8,}$",
+			message = "Password must contain at least one uppercase letter, one lowercase letter, one digit, one special character, and be at least 8 characters long")
 	private String password;
+	
 	private String role;
+	
+	@NotNull(message = "BOX MUST BE CHECKED")
 	private boolean enabled;
 	private String imgUrl;
 	@Column(length = 500)

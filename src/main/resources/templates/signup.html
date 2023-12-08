@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Thymeleaf Registration Page</title>
 <link rel="stylesheet" th:href="@{/css/style1.css}">
 </head>
@@ -30,13 +28,17 @@
 
 		<form th:action="@{/signup}" method="post" th:object="${user}">
 			<label for="name">NAME </label> 
-			<input th:field="${user.name}" type="text" id="name"
-				name="name" placeholder="enter your name" required> 
+			<input th:field="${user.name}"  type="text" id="name"
+				name="name" placeholder="enter your name" /><span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+				
 				<label for="email">EMAIL </label> 
-				<input th:field="${user.email}" type="email" id="email" name="email" placeholder="enter your email" required> 
+				<input th:field="${user.email}" type="email" id="email" name="email" placeholder="enter your email" required />
+				<span  th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+				 
 				<label for="password">PASSWORD </label>
 				<input th:field="${user.password}" type="password" id="password" name="password" placeholder="enter your password"
 				required> 
+				
 				<label for="about">ABOUT </label>
 				<textarea th:field="${user.about}" id="about" name="about" placeholder="enter about yourself"
 				rows="4"></textarea>
