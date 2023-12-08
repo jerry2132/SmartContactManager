@@ -16,7 +16,17 @@
 
 	<div class="container">
 
+ 	
+    
 		<h2>FILL ALL DETAILS CORRECTLY...</h2>
+		
+		<div class="message" th:if="${successMessage != null}">
+ 			<span th:text = "${successMessage}"></span>
+    	</div>
+    
+    	<div class="message" th:if="${errorMessage != null}">
+ 			<span th:text = "${errorMessage}"></span>
+    	</div>
 
 		<form th:action="@{/signup}" method="post" th:object="${user}">
 			<label for="name">NAME </label> 
