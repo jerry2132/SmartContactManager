@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <!-- Add your CSS stylesheets or links here -->
+    <link rel="stylesheet" th:href="@{/css/style1.css}">
+</head>
+<body>
+
+<nav>
+		<span>SMART CONTACT MANAGER</span> <a th:href="@{login}">LOGIN</a> <a
+			th:href="@{/signup}">SIGNUP</a> <a th:href="@{/base}">HOME</a> <a
+			href="#about">ABOUT</a>
+</nav>
+
+
+<div class="container">
+    <h2>Login</h2>
+    
+    <!-- Display error message if login fails 
+    <div th:if="${error}" class="error-message">
+        Invalid email or password.
+    </div> -->
+    
+    
+    <form th:action="@{/login}" method="post">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        
+        <input type="submit" value="Login">
+    </form>
+</div>
+
+</body>
+</html>
