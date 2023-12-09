@@ -6,12 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.entity.User;
@@ -40,14 +37,14 @@ public class SignUpController {
 	 	public String registerUser(@Valid @ModelAttribute("user") User user,BindingResult bindingresult
 	 			,RedirectAttributes redirectAttributes) {
 	 		
-	 		Optional<User> finduser = userRepository.findUserByEmail(user.getEmail());
+	 		User finduser = userRepository.findUserByEmail(user.getEmail());
 	 		
 	 		if(bindingresult.hasErrors()) {
 	 			
 	 			return "signup";
 	 		}
 	 		
-	 		if(finduser.isPresent()) {
+	 		if(finduser != null) {
 	 			
 //	 			model.addAttribute("message", "user already present");
 	 			
