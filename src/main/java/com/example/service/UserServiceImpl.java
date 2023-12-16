@@ -7,7 +7,7 @@ import com.example.entity.User;
 import com.example.repository.UserRepository;
 
 @Service
-public class UserServiceImlementation implements UserService{
+public class UserServiceImpl implements UserService{
 
 	@Autowired
 	private UserRepository userRepository;
@@ -22,6 +22,12 @@ public class UserServiceImlementation implements UserService{
 		// TODO Auto-generated method stub
 //		user = new User(user.getAbout(),user.getEmail(),user.getName(),user.getImgUrl(),user.isEnabled(),user.getPassword(),user.getRole());
 		return userRepository.save(user);
+	}
+
+	@Override
+	public User findByEmail(String email) {
+		// TODO Auto-generated method stub
+		return userRepository.findUserByEmail(email);
 	}
 
 }

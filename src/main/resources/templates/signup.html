@@ -37,15 +37,18 @@
 				 
 				<label for="password">PASSWORD </label>
 				<input th:field="${user.password}" type="password" id="password" name="password" placeholder="enter your password"
-				required> 
+				required />
+				<span  th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span> 
 				
 				<label for="about">ABOUT </label>
 				<textarea th:field="${user.about}" id="about" name="about" placeholder="enter about yourself"
 				rows="4"></textarea>
+				<span  th:if="${#fields.hasErrors('about')}" th:errors="*{about}"></span> 
 
 			<div class="input-container">
             <input th:field="${user.enabled}" type="checkbox" id="acceptTerms" name="enabled" required>
              <label for="acceptTerms">I accept the terms and conditions</label>
+             <span  th:if="${#fields.hasErrors('enabled')}" th:errors="*{enabled}"></span>
         	</div>
 
 				<input type="submit" value="Register"> 

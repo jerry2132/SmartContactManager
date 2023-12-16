@@ -2,6 +2,8 @@ package com.example.entity;
 
 import java.util.*;
 
+import org.springframework.stereotype.Component;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,6 +19,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
+@Component
 @Entity
 @Table(name = "USER")
 public class User {
@@ -35,7 +38,7 @@ public class User {
 	private String email;
 	
 	@NotEmpty(message ="UNABLE TO SAVE USER ,PASSWORD IS REQUIRED")
-	@Pattern(regexp= "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\\\d)(?=.*[@$!%*?&])[A-Za-z\\\\d@$!%*?&]{8,}$",
+	@Pattern(regexp= "^(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\\w\\d\\s:])([^\\s]){8,16}$",
 			message = "Password must contain at least one uppercase letter, one lowercase letter, one digit, one special character, and be at least 8 characters long")
 	private String password;
 	
@@ -44,7 +47,9 @@ public class User {
 	@NotNull(message = "BOX MUST BE CHECKED")
 	private boolean enabled;
 	private String imgUrl;
+	
 	@Column(length = 500)
+	@NotEmpty(message ="can not be empty")
 	private String about;
 	
 	
@@ -54,7 +59,7 @@ public class User {
 	
 
 	public User() {
-		super();
+//		super();
 	}
 
 	public int getId() {

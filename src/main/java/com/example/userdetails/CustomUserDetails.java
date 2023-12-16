@@ -2,21 +2,24 @@ package com.example.userdetails;
 
 import java.util.*;
 
+import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
 
 import com.example.entity.User;
 
+@Service
 public class CustomUserDetails implements UserDetails{
 
 	
-	private User user;
+	private final User user;
 	
 	
-	
+	@Autowired
 	public CustomUserDetails(User user) {
 		super();
 		this.user = user;
@@ -32,6 +35,12 @@ public class CustomUserDetails implements UserDetails{
 		return authorities;
 	}
 
+	
+	public String getName()
+	{
+		return user.getName();
+	}
+	
 	@Override
 	public String getPassword() {
 		// TODO Auto-generated method stub
