@@ -4,14 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
+    <link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet">
 </head>
 <body>
-    <h1>Welcome to the ADmin Dashboard!</h1>
-    <p>Here, you can see admin-specific content.</p>
 
-    <!-- Logout Form -->
+<nav>
+	<span>SMART CONTACT MANAGER</span>
+    <a th:href="@{login}">LOGIN</a>
+    <a th:href="@{/signup}">SIGNUP</a>
+    <a href="#home">HOME</a>
+    <a href="#about">ABOUT</a>
+    <a href="/logout" >LOGOUT</a>
+    
+</nav>
+
+    <h2>Welcome to the Admin Dashboard!</h2>
+    <!--<p>Here, you can see admin-specific content.</p>
+
+     Logout Form 
     <form th:action="@{/logout}" method="post">
         <input type="submit" value="Logout">
-    </form>
+    </form>-->
 </body>
 </html>

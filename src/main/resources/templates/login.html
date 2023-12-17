@@ -20,7 +20,12 @@
     <!-- Display error message if login fails 
     <div th:if="${error}" class="error-message">
         Invalid email or password.
-    </div> -->
+    </div> 
+    
+    
+		<p th:if="${error}" th:text="${error}">
+			
+		</p>-->
     
     
     <form th:action="@{/login}" method="post">

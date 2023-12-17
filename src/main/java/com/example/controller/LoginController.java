@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 //import java.security.Principal;
 import com.example.entity.User;
 import com.example.repository.UserRepository;
@@ -25,9 +27,12 @@ public class LoginController {
  	private UserRepository userRepository;
  	
  	@RequestMapping("/login")
- 	public String login(Model model) {
+ 	public String login(Model model, @RequestParam(name = "error", required=false) String error) {
  		
  		model.addAttribute("user", new User());
+// 		if (error != null && !error.isEmpty()) {
+//            model.addAttribute("error", "Invalid username or password");
+//        }
  		return "login";
  	}
  	
