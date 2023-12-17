@@ -38,8 +38,8 @@ public class User {
 	private String email;
 	
 	@NotEmpty(message ="UNABLE TO SAVE USER ,PASSWORD IS REQUIRED")
-	@Pattern(regexp= "^(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\\w\\d\\s:])([^\\s]){8,16}$",
-			message = "Password must contain at least one uppercase letter, one lowercase letter, one digit, one special character, and be at least 8 characters long")
+//	@Pattern(regexp= "^(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\\w\\d\\s:])([^\\s]){8,16}$",
+//			message = "Password must contain at least one uppercase letter, one lowercase letter, one digit, one special character, and be at least 8 characters long")
 	private String password;
 	
 	private String role;

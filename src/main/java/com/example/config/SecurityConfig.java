@@ -18,10 +18,12 @@ public class SecurityConfig {
 	@Autowired
 	CustomUserDetailsServiceImpl customUserDetailsServiceImpl;
 	
+	
 	@Bean
 	public static PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+
 
 	
 	@Bean
@@ -30,8 +32,8 @@ public class SecurityConfig {
 		http.csrf().disable().authorizeHttpRequests().requestMatchers("/user/**").hasRole("USER")
 		.requestMatchers("/admin/**").hasRole("ADMIN")
 		.requestMatchers("/**").permitAll().and().formLogin().loginPage("/login").loginProcessingUrl("/login")
-		.defaultSuccessUrl("/default").failureUrl("/login?error=true")
-		.and().logout().permitAll();
+		.defaultSuccessUrl("/dashboard").failureUrl("/login?error")
+		.and().logout().logoutUrl("/logout").permitAll();
 		
 		return http.build();
 	}

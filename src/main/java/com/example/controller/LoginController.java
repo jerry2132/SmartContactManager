@@ -30,16 +30,22 @@ public class LoginController {
  		model.addAttribute("user", new User());
  		return "login";
  	}
+ 	
+ 	@RequestMapping("/default_dashboard")
+ 	public String default1() {
+ 		
+ 		return "default_dashboard";
+ 	}
 
- 	@GetMapping("/default")
-    public String defaultAfterLogin(HttpServletRequest request) {
-        if (request.isUserInRole("USER")) {
-            return "redirect:/user/user_dashboard";
-        } else if (request.isUserInRole("ADMIN")) {
-            return "redirect:/admin/admin_dashboard";
-        } else {
-            // Handle other roles or situations
-            return "redirect:/default_dashboard";
-        }
-    }
+// 	@GetMapping("/default")
+//    public String defaultAfterLogin(HttpServletRequest request) {
+//        if (request.isUserInRole("USER")) {
+//            return "redirect:/user/user_dashboard";
+//        } else if (request.isUserInRole("ADMIN")) {
+//            return "redirect:/admin/admin_dashboard";
+//        } else {
+//            // Handle other roles or situations
+//            return "redirect:/default_dashboard";
+//        }
+//    }
 }
