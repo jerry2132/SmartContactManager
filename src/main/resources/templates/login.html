@@ -23,10 +23,24 @@
     </div> 
     
     
-		<p th:if="${error}" th:text="${error}">
+		<p th:if="${error}" class="error-message" th:text="${error}">
 			
-		</p>-->
+		</p>
+		
+	
+    		 <div th:if="${error != null}">
+        <div class="error-message">
+            <p th:utext="${error}"></p>
+        </div>
+    </div>-->
     
+    
+    <div th:if="${error != null}">
+    <div class="error-message">
+        <p th:utext="${error}"></p>
+    </div>
+</div>
+	
     
     <form th:action="@{/login}" method="post">
         <label for="username">Email:</label>

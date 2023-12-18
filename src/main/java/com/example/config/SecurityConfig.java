@@ -3,12 +3,15 @@ package com.example.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 
+import com.example.component.CustomAuthenticationFailureHandler;
 import com.example.userdetails.CustomUserDetailsServiceImpl;
 
 @Configuration
@@ -18,12 +21,22 @@ public class SecurityConfig {
 	@Autowired
 	CustomUserDetailsServiceImpl customUserDetailsServiceImpl;
 	
+	@Autowired
+    private CustomAuthenticationFailureHandler customAuthenticationFailureHandler;
 	
 	@Bean
 	public static PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 
+	
+	@Bean
+	public AuthenticationProvider authenticationProvider() {
+	    DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+	    provider.setUserDetailsService(customUserDetailsServiceImpl);
+	    provider.setPasswordEncoder(passwordEncoder()); // Make sure to provide your password encoder
+	    return provider;
+	}
 
 	
 	@Bean
@@ -32,10 +45,12 @@ public class SecurityConfig {
 		http.csrf().disable().authorizeHttpRequests().requestMatchers("/user/**").hasRole("USER")
 		.requestMatchers("/admin/**").hasRole("ADMIN")
 		.requestMatchers("/**").permitAll().and().formLogin().loginPage("/login").loginProcessingUrl("/login")
-		.defaultSuccessUrl("/dashboard").failureUrl("/login?error")
+		.defaultSuccessUrl("/dashboard").failureHandler(customAuthenticationFailureHandler)
+
 		.and().logout().logoutUrl("/logout").permitAll();
 		
 		return http.build();
 	}
 	
 }
+//.failureUrl("/login?error")
