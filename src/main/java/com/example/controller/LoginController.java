@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import com.example.component.CustomAuthenticationFailureHandler;
 //import java.security.Principal;
 import com.example.entity.User;
 import com.example.repository.UserRepository;
@@ -34,15 +32,15 @@ public class LoginController {
  	@RequestMapping("/login")
  	public String login(Model model, @RequestParam(name = "error", required=false) String error) {		
 		
- 		if (error != null) {
-            if (error.equals("notRegistered")) {
-                model.addAttribute("error", "User does not exist.");
-            } else if (error.equals("invalidCredentials")) {
-                model.addAttribute("error", "Bad credentials. Please check your username or password.");
-            }
-        }
- 		System.out.println("Error parameter value: " + error);
  		model.addAttribute("user", new User());
+ 		if (error != null) {
+            if (error.equals("error")) {
+                model.addAttribute("error", "Username doesnot exist or password is incorrect");
+           
+        }
+ 		}
+ 		System.out.println("Error parameter value: " + error);
+ 		
  		return "login";
  	}
  	

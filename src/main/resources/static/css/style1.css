@@ -85,6 +85,7 @@ nav {
 	background-color: #EC8565;
 	overflow: hidden;
 	height: 42px;
+	font-weight: bold;
 }
 
 nav span {
@@ -111,5 +112,5 @@ nav a:hover {
 	background-color: #EF2632;
 	color: black;
 	padding: 8px 10px;
-	border-radius: 20px;
+	border-radius: 15px;
 }

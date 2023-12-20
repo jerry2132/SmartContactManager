@@ -19,6 +19,15 @@ nav span {
 	padding: 14px 16px;
 	color: black;
 	font-size: 18px; /* Adjust the font size as needed */
+	font-weight: bold;
+}
+
+nav .user-name {
+	float: right;
+	padding: 14px 16px;
+	color: black;
+	font-size: 18px; /* Adjust the font size as needed */
+	font-weight: bold;
 }
 
 nav a {
@@ -28,6 +37,7 @@ nav a {
 	text-align: center;
 	padding: 14px 16px;
 	text-decoration: none;
+	font-weight: bold;
 }
 
 h2 {
