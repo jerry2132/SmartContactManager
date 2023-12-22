@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.userdetails.CustomUserDetailsServiceImpl;
@@ -24,6 +25,15 @@ public class AdminController {
 	@Autowired
 	private CustomUserDetailsServiceImpl customUserDetailsServiceImpl;
 	
+	@ModelAttribute
+	public void commonDashboard(Model model, Principal principal) {
+		UserDetails userDetails  = customUserDetailsServiceImpl.loadUserByUsername(principal.getName());
+		
+		model.addAttribute("userdetails", userDetails);
+		
+	}
+	
+	
 	@RequestMapping("/dashboard")
 	public String dashboard(Model model, Principal principal) {
 		
@@ -37,9 +47,9 @@ public class AdminController {
 //        	 // return "redirect:/default_dashboard";
 //		 }
 		
-		UserDetails userDetails  = customUserDetailsServiceImpl.loadUserByUsername(principal.getName());
-		
-		model.addAttribute("userdetails", userDetails);
-		 return "admin_dashboard";
+//		UserDetails userDetails  = customUserDetailsServiceImpl.loadUserByUsername(principal.getName());
+//		
+//		model.addAttribute("userdetails", userDetails);
+		 return "admin/admin_dashboard";
 	}
 }

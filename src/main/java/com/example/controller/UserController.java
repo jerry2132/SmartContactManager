@@ -10,9 +10,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 //import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 //import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.entity.Contact;
 import com.example.userdetails.CustomUserDetailsServiceImpl;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,8 +27,16 @@ public class UserController {
 	@Autowired
 	private CustomUserDetailsServiceImpl customUserDetailsServiceImpl;
 	
+	@ModelAttribute
+	public void commonDashboard(Model model,Principal principal) {
+		
+		UserDetails userDetails = customUserDetailsServiceImpl.loadUserByUsername(principal.getName());
+		model.addAttribute("userdetails", userDetails);
+		
+	}
+	
 	@RequestMapping("/dashboard")
-	public String dashboard(Model model,Principal principal) {
+	public String dashboard() {
 		
 		
 		
@@ -41,9 +52,16 @@ public class UserController {
 		
 		//String userName = principal.getName();
 		//System.out.println(userName);
-		UserDetails userDetails = customUserDetailsServiceImpl.loadUserByUsername(principal.getName());
-		model.addAttribute("userdetails", userDetails);
-		 return "user_dashboard";
+//		UserDetails userDetails = customUserDetailsServiceImpl.loadUserByUsername(principal.getName());
+//		model.addAttribute("userdetails", userDetails);
+		 return "user/user_dashboard";
+	}
+	
+	@GetMapping("/add-contacts")
+	public String addContacts(Model model) {
+		
+		model.addAttribute("contact", new Contact());
+		return "user/add_contacts";
 	}
 	
 		
