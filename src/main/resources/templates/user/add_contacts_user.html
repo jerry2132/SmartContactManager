@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>User Add Contacts</title>
+<link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet">
+<link rel="stylesheet" 
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+<nav>
+	<span>SMART CONTACT MANAGER</span>
+    <!--  <a th:href="@{/login}">LOGIN</a>
+    <a th:href="@{/signup}">SIGNUP</a>
+    <a href="#home">HOME</a>
+    <a href="#about">ABOUT</a>-->
+    <a href="/logout" >LOGOUT</a>
+    
+     <span th:text="${userdetails.name}" class="user-name">John Doe</span> 
+    </nav>
+    
+    
+    <div class="sidebar">
+    <span class="close-btn" onclick="toggleSidebar()">×</span>
+    <a href="#" th:href="@{/user/dashboard}" class="item"><i class="fa-solid fa-house"></i> HOME </a>
+    <a href="#" class="item"> <i class="fa-solid fa-address-book"></i> VIEW CONTACTS </a>
+    <a href="#" th:href="@{/user/add-contacts}" class="item"><i class="fa-solid fa-user-plus"></i> ADD CONTACTS </a>
+    <a href="#" class="item"><i class="fa-solid fa-user"></i> YOUR PROFILE </a>
+    <a href="#" class="item"><i class="fa-solid fa-gear"></i> SETTINGS </a>
+    </div>
+    
+    
+     <div class="content">
+	 
+	 <i onclick="toggleSidebar()" class="fa-solid fa-bars pointer-cursor"></i>
+	 <!-- <h2>Welcome to the User Dashboard!</h2>
+	   <button onclick="toggleSidebar()">Toggle Sidebar</button> -->
+ 
+	</div>
+	<h2> add contacts here User</h2>
+	
+
+
+<script src="/user/js/script.js"></script>
+</body>
+</html>

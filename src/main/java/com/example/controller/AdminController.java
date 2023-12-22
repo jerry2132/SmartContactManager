@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.entity.Contact;
 import com.example.userdetails.CustomUserDetailsServiceImpl;
 
 //import java.util.Set;
@@ -51,5 +53,12 @@ public class AdminController {
 //		
 //		model.addAttribute("userdetails", userDetails);
 		 return "admin/admin_dashboard";
+	}
+	
+	@GetMapping("/add-contacts")
+	public String addContacts(Model model) {
+		
+		model.addAttribute("contact", new Contact());
+		return "admin/add_contacts_admin";
 	}
 }

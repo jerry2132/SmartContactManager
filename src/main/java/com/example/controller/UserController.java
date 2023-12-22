@@ -61,7 +61,7 @@ public class UserController {
 	public String addContacts(Model model) {
 		
 		model.addAttribute("contact", new Contact());
-		return "user/add_contacts";
+		return "user/add_contacts_user";
 	}
 	
 		
