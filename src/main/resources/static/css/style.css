@@ -74,3 +74,66 @@ nav a:hover {
 	padding: 8px 10px;
 	border-radius: 20px;
 }
+
+
+/* CSS for Sidebar */
+
+.sidebar {
+    height: 100%;
+    width:200px;
+    position: fixed;
+    top: 10;
+    left: 0;
+    background-color:   #EC8565;
+    overflow-x: hidden;
+    transition: 0.3s;
+   /* padding-top: 60px;*/
+    padding-top: 50px;
+}
+
+.sidebar a {
+    padding: 20px;
+    text-decoration: none;
+    font-size: 14px;
+    color: black;
+    display: block;
+    transition: 0.3s;
+    font-weight:bold;
+}
+
+.sidebar a:hover {
+    background-color: #EF2632;
+    padding: 8px 10px;
+    border-radius: 20px;
+}
+
+.sidebar .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 30px;
+    color: black;
+    /*background-color: #EC8565; */
+    cursor: pointer;
+}
+
+.content {
+    margin-left: 200px; /* Adjust to the width of the sidebar */
+    padding: 16px;
+}
+
+.pointer-cursor {
+	 cursor: pointer;
+}
+
+@media only screen and (max-width: 600px) {
+    .sidebar {
+        padding-top: 15px;
+    }
+    .sidebar a {
+        font-size: 16px;
+    }
+    .content {
+        margin-left: 0;
+    }
+}

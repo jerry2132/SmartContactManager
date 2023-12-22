@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
     <link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet">
+    <link rel="stylesheet" 
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
 
@@ -19,12 +21,27 @@
     
 </nav>
 
-    <h2>Welcome to the Admin Dashboard!</h2>
-    <!--<p>Here, you can see admin-specific content.</p>
+<div class="sidebar">
+    <span class="close-btn" onclick="toggleSidebar()">×</span>
+    <a href="#" class="item"><i class="fa-solid fa-house"></i> HOME </a>
+    <a href="#" class="item"> <i class="fa-solid fa-address-book"></i>VIEW CONTACTS </a>
+    <a href="#" class="item"><i class="fa-solid fa-user-plus"></i> ADD CONTACTS </a>
+    <a href="#" class="item"><i class="fa-solid fa-user"></i> YOUR PROFILE </a>
+    <a href="#" class="item"><i class="fa-solid fa-gear"></i> SETTINGS </a>
+    </div>
 
-     Logout Form 
+    <div class="content">
+	 
+	 <i onclick="toggleSidebar()" class="fa-solid fa-bars pointer-cursor"></i>
+	 <h2>Welcome to the Admin Dashboard!</h2>
+	  <!--  <button onclick="toggleSidebar()">Toggle Sidebar</button> -->
+ 
+	</div>
+
+    <!--   Logout Form 
     <form th:action="@{/logout}" method="post">
         <input type="submit" value="Logout">
     </form>-->
+    <script src="/admin/js/script.js"></script>
 </body>
 </html>

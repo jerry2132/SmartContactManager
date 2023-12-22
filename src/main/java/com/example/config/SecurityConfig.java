@@ -40,7 +40,7 @@ public class SecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		
 		http.csrf().disable().authorizeHttpRequests().requestMatchers("/user/**").hasRole("USER")
-		.requestMatchers("/admin/**").hasRole("ADMIN")
+		.requestMatchers("/admin/**").hasRole("ADMIN").requestMatchers("/static/**").permitAll()
 		.requestMatchers("/**").permitAll().and().formLogin().loginPage("/login").loginProcessingUrl("/login")
 		.defaultSuccessUrl("/dashboard").failureUrl("/login?error=error")
 
