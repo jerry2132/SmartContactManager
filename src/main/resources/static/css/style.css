@@ -8,11 +8,60 @@ body {
 	background-size: cover;
 }
 
+.container {
+	max-width: 500px;
+	/*max-height: 200px;*/
+	/*width: 10%;*/
+	margin: 0px 0px 60px 450px;
+	/* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
+}
+
+form {
+	background-color: #fff;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+input, textarea {
+	flex: 1;
+	width: 100%;
+	padding: 5px;
+	/*margin-bottom: 10px;*/
+	margin-bottom: 7px;
+	box-sizing: border-box;
+	border: none;
+	border-bottom: 3px solid #ccc;
+	border-left: 3px solid #ccc;
+	font-style: italic;
+	/*background-color: transparent;*/
+	border-radius: 4px;
+}
+
+
+label {
+	display: block;
+	margin-bottom: 8px;
+	font-weight: bold;
+}
+
+input[type="submit"] {
+	background-color: #4caf50;
+	color: white;
+	cursor: pointer;
+}
+
+
 nav {
+	position:fixed;
 	background-color: #EC8565;
 	overflow: hidden;
 	height: 42px;
+	width:100%;
+	/*position: fixed;
+	position: absolute;
+	width: 1350px;*/
 }
+
 
 nav span {
 	float: left;
@@ -82,13 +131,14 @@ nav a:hover {
     height: 100%;
     width:200px;
     position: fixed;
-    top: 10;
+    top: 41px;
     left: 0;
     background-color:   #EC8565;
     overflow-x: hidden;
     transition: 0.3s;
    /* padding-top: 60px;*/
     padding-top: 50px;
+    
 }
 
 .sidebar a {
