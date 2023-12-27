@@ -1,5 +1,6 @@
 package com.example.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,12 +24,12 @@ public class Contact {
 	private String nickName;
 	private String work;
 	
-	@Column(unique = true)
+	
 	private String email;
 	
 	private String image;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private User user;
 	
 	public Contact() {
@@ -106,7 +107,14 @@ public class Contact {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
+
+//	@Override
+//	public String toString() {
+//		return "Contact [cid=" + cid + ", name=" + name + ", phone=" + phone + ", description=" + description
+//				+ ", nickName=" + nickName + ", work=" + work + ", email=" + email + ", image=" + image + ", user="
+//				+ user + "]";
+//	}
+//	
 	
 	
 }

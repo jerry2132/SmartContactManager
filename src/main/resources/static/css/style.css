@@ -9,7 +9,7 @@ body {
 }
 
 .container {
-	max-width: 500px;
+	max-width: 600px;
 	/*max-height: 200px;*/
 	/*width: 10%;*/
 	margin: 0px 0px 60px 450px;
@@ -159,7 +159,7 @@ nav a:hover {
 
 .sidebar .close-btn {
     position: absolute;
-    top: 10px;
+    top: 2px;
     right: 10px;
     font-size: 30px;
     color: black;
@@ -169,7 +169,7 @@ nav a:hover {
 
 .content {
     margin-left: 200px; /* Adjust to the width of the sidebar */
-    padding: 16px;
+    padding: 50px 20px;
 }
 
 .pointer-cursor {

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Status</title>
+</head>
+<body>
+    <div class="message" th:if="${successMessage != null}">
+        <span th:text="${successMessage}"></span>
+    </div>
+
+    <div class="message" th:if="${errorMessage != null}">
+        <span th:text="${errorMessage}"></span>
+    </div>
+
+    <script>
+        // Redirect to the original page after a delay (adjust the delay as needed)
+        setTimeout(function () {
+            window.location.href = "/admin/add_contacts_admin";
+        }, 3000);
+    </script>
+</body>
+</html>

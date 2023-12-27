@@ -42,31 +42,42 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 	
 	<div class="container">
         <h3>ADD CONTACTS HERE</h3>
-
-        <form th:action="@{/submit}" method="post" enctype="multipart/form-data">
+	
+	
+		 <div class="message" th:if="${successMessage != null}">
+ 			<span th:text = "${successMessage}"></span>
+    	</div>
+    
+    	<div class="message" th:if="${errorMessage != null}">
+ 			<span th:text = "${errorMessage}"></span>
+    	</div>   
+		
+		
+        <form th:action="@{/admin/process-contact}" method="post" th:object="${contact}" enctype="multipart/form-data">
 
             <label for="name">NAME</label>
-            <input type="text" id="name" name="name" required><br>
+            <input type="text" id="name" name="name" placeholder="enter your name" required><br>
 
             <label for="phone">PHONE</label>
-            <input type="tel" id="phone" name="phone" required><br>
+           <input type="tel" id="phone" name="phone" placeholder="enter your phone number" required><br>
 
-            <label for="description">DESCRIPTION</label>
-            <textarea id="description" name="description" rows="4" cols="50" required></textarea><br>
 
             <label for="nickname">NICKNAME</label>
-            <input type="text" id="nickname" name="nickname"><br>
+            <input type="text" id="nickname" name="nickname" placeholder="enter your nickname" required><br>
 
             <label for="work">WORK</label>
-            <input type="text" id="work" name="work"><br>
+            <input type="text" id="work" name="work" placeholder="enter your work" required><br>
 
             <label for="email">EMAIL</label>
-            <input type="email" id="email" name="email" required><br>
+            <input type="email" id="email" name="email" placeholder="enter your email" required><br>
+            
+            <label for="description">DESCRIPTION</label>
+            <textarea id="description" name="description" rows="8" cols="50" placeholder="enter your description" required></textarea><br>
 
-            <label for="image">IMAGE</label>
-            <input type="file" id="image" name="image"><br>
+           <!--   <label for="image">IMAGE</label>
+            <input type="file" id="image" name="image"><br>-->
 
-            <input type="submit" value="SUBMIT">
+            <input type="submit" value="ADD CONTACT">
             <input type="reset" value="RESET">
 
         </form>
