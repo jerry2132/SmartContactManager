@@ -73,10 +73,10 @@ public class AdminController {
 		return "admin/add_contacts_admin";
 	}
 	
-//	@GetMapping("/contact-status")
-//	public String showContactStatus() {
-//	    return "admin/contact-status";
-//	}
+	@GetMapping("/contact-status")
+	public String showContactStatus() {
+	    return "admin/contact-status";
+	}
 
 	
 	@PostMapping("/process-contact")
@@ -100,6 +100,6 @@ public class AdminController {
 		
 		//redirectAttributes.addFlashAttribute("successMessage", "Contact saved succcessfully");
 		//System.out.println(contact);
-		return "redirect:/admin/add-contacts";
+		return "redirect:/admin/contact-status";
 	}
 }
