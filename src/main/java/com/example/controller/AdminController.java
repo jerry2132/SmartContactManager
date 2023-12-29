@@ -1,8 +1,15 @@
 package com.example.controller;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.security.Principal;
+import java.sql.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,8 +17,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import com.example.entity.Contact;
 import com.example.entity.User;
 import com.example.service.ContactService;
@@ -37,6 +48,11 @@ public class AdminController {
 	
 	@Autowired
 	private ContactService contactService;
+	
+//	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd-HHmmss");
+//	String formattedDateTime = dateFormat.format(new Date());
+	
+	
 	
 	@ModelAttribute
 	public void commonDashboard(Model model, Principal principal) {
@@ -80,16 +96,56 @@ public class AdminController {
 
 	
 	@PostMapping("/process-contact")
-	public String saveContact(@ModelAttribute Contact contact,Principal principal
+	public String saveContact(@ModelAttribute Contact contact, @RequestParam("imageFile") MultipartFile file,
+			Principal principal
 			,RedirectAttributes redirectAttributes) {
 		
+		try {
 			UserDetails userDetails  = customUserDetailsServiceImpl.loadUserByUsername(principal.getName());
 	
 			User user = userService.findByEmail(userDetails.getUsername());
+			
+			if(file.isEmpty()) {
+				
+				System.out.println("file is emptyt");
+				
+			}else {
+				
+				String formattedDateTime = DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss").format(LocalDateTime.now());
+	            String uniqueFilename = formattedDateTime + "_" + file.getOriginalFilename();
+				
+			contact.setImage(uniqueFilename);
+				
+//				 String directoryPath = "static" + File.separator + "img";
+				 
+				 
+				
+				File saveFile = new ClassPathResource("static/img").getFile();
+				
+//				 File saveFile = new File(directoryPath, uniqueFilename);
+				 
+//				 if (!saveFile.getParentFile().exists()) {
+//		                saveFile.getParentFile().mkdirs();
+//		            } 
+				
+				Path path = Paths.get(saveFile.getAbsolutePath()+File.separator + uniqueFilename);
+				
+//				Files.createDirectories(path.getParent());
+				
+//				Files.createDirectories(saveFile.toPath().getParent());
+				
+				Files.copy(file.getInputStream(), path , StandardCopyOption.REPLACE_EXISTING);
+				
+//				file.transferTo(saveFile);
+				
+				 //contact.setImage(uniqueFilename);
+				
+				System.out.println("uploded");
+			}
 		
 		contact.setUser(user);
 		
-		try {
+	
 			
 			contactService.save(contact);
 			redirectAttributes.addFlashAttribute("successMessage", "Contact saved succcessfully");

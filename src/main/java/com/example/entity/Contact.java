@@ -1,5 +1,7 @@
 package com.example.entity;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -8,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "CONTACT")
@@ -26,6 +29,9 @@ public class Contact {
 	
 	
 	private String email;
+	
+	  @Transient
+	  private MultipartFile imageFile;
 	
 	private String image;
 	
@@ -107,6 +113,16 @@ public class Contact {
 	public void setUser(User user) {
 		this.user = user;
 	}
+
+	public MultipartFile getImageFile() {
+		return imageFile;
+	}
+
+	public void setImageFile(MultipartFile imageFile) {
+		this.imageFile = imageFile;
+	}
+	
+	
 
 //	@Override
 //	public String toString() {
