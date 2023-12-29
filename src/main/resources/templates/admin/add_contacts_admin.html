@@ -4,9 +4,26 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin Add contacts </title>
+<!--  <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script> -->
+
 <link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet">
 <link rel="stylesheet" 
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+ 
+    <!--  <script type="text/javascript">
+    
+    document.addEventListener('DOMContentLoaded', function () {
+        tinymce.init({
+            selector: "#mytextarea"
+        });
+    });
+    </script>
+    -->
+    
+  
+    
+   
 </head>
 <body>
 
@@ -25,7 +42,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     <div class="sidebar">
     <span class="close-btn" onclick="toggleSidebar()">×</span>
     <a href="#" th:href="@{/admin/dashboard}" class="item"><i class="fa-solid fa-house"></i> HOME </a>
-    <a href="#" class="item"> <i class="fa-solid fa-address-book"></i> VIEW CONTACTS </a>
+    <a href="#" th:href="@{/admin/view-contacts}" class="item"> <i class="fa-solid fa-address-book"></i> VIEW CONTACTS </a>
     <a href="#" class="item"><i class="fa-solid fa-user-plus"></i> ADD CONTACTS </a>
     <a href="#" class="item"><i class="fa-solid fa-user"></i> YOUR PROFILE </a>
     <a href="#" class="item"><i class="fa-solid fa-gear"></i> SETTINGS </a>
@@ -59,7 +76,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
             <input type="text" id="name" name="name" placeholder="enter your name" required><br>
 
             <label for="phone">PHONE</label>
-           <input type="tel" id="phone" name="phone" placeholder="enter your phone number" required><br>
+           <input type="number" id="phone" name="phone" placeholder="enter your phone number" required><br>
 
 
             <label for="nickname">NICKNAME</label>
@@ -69,17 +86,18 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
             <input type="text" id="work" name="work" placeholder="enter your work" required><br>
 
             <label for="email">EMAIL</label>
-            <input type="email" id="email" name="email" placeholder="enter your email" required><br>
+            <input type="email" id="email" name="email" placeholder="enter your email" required><br> <br>
             
             <label for="description">DESCRIPTION</label>
-            <textarea id="description" name="description" rows="8" cols="50" placeholder="enter your description" required></textarea><br>
-
+            <textarea id="description" name="description" rows="15" cols="50" placeholder="enter your description" required></textarea><br>
+				
              <label for="image">IMAGE</label>
             <input type="file" id="image" name="imageFile"><br>
 
             <input type="submit" value="ADD CONTACT">
             <input type="reset" value="RESET">
 
+			
         </form>
     </div>
 	

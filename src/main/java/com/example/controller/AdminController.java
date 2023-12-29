@@ -158,4 +158,10 @@ public class AdminController {
 		//System.out.println(contact);
 		return "redirect:/admin/contact-status";
 	}
+	
+	@GetMapping("/view-contacts")
+	public String viewContacts() {
+		
+		return "admin/view-contacts";
+	}
 }

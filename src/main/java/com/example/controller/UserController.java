@@ -133,4 +133,10 @@ public class UserController {
 			
 			return "redirect:/user/contact-status";
 		}
+		
+		@GetMapping("/view-contacts")
+		public String viewContacts() {
+			
+			return "user/view-contacts";
+		}
 }
