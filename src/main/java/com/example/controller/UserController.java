@@ -1,9 +1,17 @@
 package com.example.controller;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.security.Principal;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.core.userdetails.UserDetails;
 //import org.springframework.security.core.Authentication;
 //import org.springframework.security.core.authority.AuthorityUtils;
@@ -15,6 +23,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 //import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.entity.Contact;
@@ -81,15 +91,38 @@ public class UserController {
 	}
 		
 		@PostMapping("process-contact")
-		public String saveContact(@ModelAttribute Contact contact, Principal principal
+		public String saveContact(@ModelAttribute Contact contact,@RequestParam("imageFile") MultipartFile file,
+				Principal principal
 				,RedirectAttributes redirectAttributes) {
 			
+			try {	
 			UserDetails userDetails = customUserDetailsServiceImpl.loadUserByUsername(principal.getName());
 			User user = userService.findByEmail(userDetails.getUsername());
 			
+			if(file.isEmpty()) {
+				
+				System.out.println("file is emptyt");
+				
+			}else {
+				
+				String formattedDateTime = DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss").format(LocalDateTime.now());
+	            String uniqueFilename = formattedDateTime + "_" + file.getOriginalFilename();
+				
+			contact.setImage(uniqueFilename);
+			
+			File saveFile = new ClassPathResource("static/img").getFile();
+			
+			Path path = Paths.get(saveFile.getAbsolutePath()+File.separator + uniqueFilename);
+			
+			Files.copy(file.getInputStream(), path , StandardCopyOption.REPLACE_EXISTING);
+			
+			System.out.println("upoaded");
+			
+			}
+			
 			contact.setUser(user);
 			
-			try {
+			
 				contactService.save(contact);
 				redirectAttributes.addFlashAttribute("successMessage", "Contact saved succcessfully");
 				
