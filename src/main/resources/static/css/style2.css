@@ -1,0 +1,59 @@
+.container1 {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between; /* Adjust as needed */
+            margin-top:70px;
+            
+        }
+        
+        .container-wrapper {
+    		display: flex;
+		}
+
+        /* Card styling */
+       .card {
+        	 background-color:   #EC8565;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-right: 150px;
+            margin-top:20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+           /* margin: 20px 0px;  Adjust margin as needed */
+            width: 425px;
+            /*background-color: #fff;*/
+            transition: transform 0.3s ease-in-out;
+            z-index: 1;
+        }
+
+        .card:hover {
+        	background-color: #EF2632;
+            transform: scale(1.05);
+        }
+
+        /* Card content styling */
+        .card-content {
+        	align-items: center;
+            padding: 10px;
+        }
+
+        .card h3 {
+            margin-top: 0;
+        }
+
+        .card p {
+            margin: 0;
+        }
+
+        .card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+        
+        .contact-info label,
+		.contact-info p {
+    		display: inline-block;
+    		margin-right: 10px; /* Adjust the value as needed for spacing */
+		}

@@ -8,6 +8,7 @@ import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -135,7 +136,14 @@ public class UserController {
 		}
 		
 		@GetMapping("/view-contacts")
-		public String viewContacts() {
+		public String viewContacts(Model model,Principal principal) {
+			
+			UserDetails userDetails = customUserDetailsServiceImpl.loadUserByUsername(principal.getName());
+			User user = userService.findByEmail(userDetails.getUsername());
+			
+			List<Contact> contacts = user.getContacts();
+			
+			model.addAttribute("contacts", contacts);
 			
 			return "user/view-contacts";
 		}

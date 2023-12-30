@@ -61,6 +61,7 @@ nav {
 	position: absolute;
 	width: 1350px;*/
 	top: 0;
+	z-index:2;
 }
 
 
@@ -139,6 +140,7 @@ nav a:hover {
     transition: 0.3s;
    /* padding-top: 60px;*/
     padding-top: 50px;
+    z-index: 2;
     
 }
 
