@@ -23,6 +23,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+
 import com.example.entity.Contact;
 import com.example.entity.User;
 import com.example.service.ContactService;
@@ -107,7 +109,7 @@ public class AdminController {
 			
 			if(file.isEmpty()) {
 				
-				System.out.println("file is emptyt");
+				System.out.println("file is empty");
 				
 			}else {
 				
@@ -160,7 +162,15 @@ public class AdminController {
 	}
 	
 	@GetMapping("/view-contacts")
-	public String viewContacts() {
+	public String viewContacts(Model model,Principal principal) {
+		
+		UserDetails userDetails  = customUserDetailsServiceImpl.loadUserByUsername(principal.getName());
+		
+		User user = userService.findByEmail(userDetails.getUsername());
+		
+		List<Contact> contacts = user.getContacts();
+		
+		model.addAttribute("contacts", contacts);
 		
 		return "admin/view-contacts";
 	}

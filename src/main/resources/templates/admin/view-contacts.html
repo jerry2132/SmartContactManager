@@ -41,6 +41,25 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
  
 	</div>
 	
+	
+		<div>
+			<table>
+				
+				<tr th:each="contact:${contacts}">
+				
+				<td th:text="${contact.name}"></td>
+				<td th:text="${contact.email}"></td>
+				<td th:text="${contact.image}"></td>
+				<td th:text="${contact.phone}"></td>
+				
+				
+				
+				</tr>
+			</table>
+				
+		
+		</div>
+	
 <script src="/admin/js/script.js"></script>
 </body>
 </html>

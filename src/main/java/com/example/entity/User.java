@@ -3,6 +3,7 @@ package com.example.entity;
 import java.util.*;
 
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -13,6 +14,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -47,6 +49,9 @@ public class User {
 	@NotNull(message = "BOX MUST BE CHECKED")
 	private boolean enabled;
 	private String imgUrl;
+	
+	@Transient
+	private MultipartFile imageUrl;
 	
 	@Column(length = 500)
 	@NotEmpty(message ="can not be empty")
@@ -133,6 +138,16 @@ public class User {
 	public void setContacts(List<Contact> contacts) {
 		this.contacts = contacts;
 	}
+
+	public MultipartFile getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(MultipartFile imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+	
+	
 
 //	@Override
 //	public String toString() {
