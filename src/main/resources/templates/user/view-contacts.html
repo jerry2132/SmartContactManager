@@ -46,21 +46,28 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 	<div class="container1">
 			
 			
+			<div th:if="${contacts.isEmpty()}">
+			<p>nothing to show</p>
+			<p th:text="${#lists.size(contacts)}"></p>
+			
+			</div>
 			
 			 <div th:each="contact : ${contacts}" class="card">
             <!-- You can customize the card content based on your Contact entity -->
             <div class="card-content">
-            <h3 th:text="${contact.name}"></h3>
+            
             <img th:src="@{/images/{imageName}(imageName=${contact.image})}" alt="Contact Image"/>
+            <h3 th:text="${contact.name}"></h3>
+            
             <div class="contact-info">
+            <label for="image">CONTACT ID : </label><i th:text="${'CSMID' + contact.cid}"></i><br>
+            <label for="image">EMAIL : </label><i th:text="${contact.email}"></i><br>
             
-            <label for="image">CONTACT ID : </label><p th:text="${'CSMID' + contact.cid}"></p><br>
-            <label for="image">EMAIL : </label><p th:text="${contact.email}"></p><br>
-            
-            <label for="image">PHONE : </label><p th:text="${contact.phone}"></p><br>
-            <label for="image">WORK : </label><p th:text="${contact.work}"></p><br>
-            <label for="image">DESCRIPTION : </label><p th:text="${contact.description}"></p><br>
-            
+            <label for="image">PHONE : </label><i th:text="${contact.phone}"></i><br>
+            <label for="image">WORK : </label><i th:text="${contact.work}"></i><br>
+            <label for="image">DESCRIPTION : </label><i th:text="${contact.description}"></i><br>
+            <button><i class="fa-solid fa-pen"></i>	UPDATE</button>
+           <button><i class="fa-solid fa-delete-left"></i>	DELETE</button>
             </div>
             
             </div>
