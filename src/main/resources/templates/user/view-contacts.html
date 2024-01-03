@@ -8,6 +8,32 @@
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet">
 <link href="../static/css/style2.css" th:href="@{/css/style2.css}" rel="stylesheet">
+<style>
+.pagination {
+  display: flex;
+  justify-content:center;
+  margin-top:40px;
+}
+
+.pagination a {
+  color: black;
+  float: center;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+  border: 1px solid #ddd;
+  font-size: 22px;
+}
+
+.pagination a.active {
+  background-color: #4CAF50;
+  color: white;
+  border: 1px solid #4CAF50;
+}
+
+.pagination a:hover:not(.active) {background-color: #ddd;}
+</style>
+
 </head>
 <body>
 
@@ -47,8 +73,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 			
 			
 			<div th:if="${contacts.isEmpty()}">
-			<p>nothing to show</p>
-			<p th:text="${#lists.size(contacts)}"></p>
+			<p>nothing to show,Try adding Contacts</p>
+			<!--  <p th:text="${#lists.size(contacts)}"></p>-->
 			
 			</div>
 			
@@ -72,12 +98,54 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
             
             </div>
             
-        </div>
-				
+  <!-- Pagination Links 
+<div class="pagination">
+    <ul>
+        <li th:if="${currentPage > 0}">
+            <a th:href="@{/user/view-contacts(page=${currentPage - 1})}">« Previous</a>
+        </li>
+        <li th:each="pageNumber : ${#numbers.sequence(0, totalPages - 1)}" th:class="${pageNumber == currentPage} ? 'active'">
+            <a th:href="@{'/user/view-contacts?page=' + pageNumber}" th:text="${pageNumber + 1}"></a>
+        </li>
+        <li th:if="${currentPage < totalPages - 1}">
+            <a th:href="@{/user/view-contacts(page=${currentPage + 1})}">Next »</a>
+        </li>
+    </ul>
+</div>-->
+
+
+
+		<!-- Pagination Links 
+<div class="pagination">
+    <ul>
+        <li th:if="${currentPage > 0}">
+            <a th:href="@{/user/view-contacts(page=${currentPage - 1})}">« Previous</a>
+        </li>
+        <li th:each="pageNumber : ${#numbers.sequence(0, totalPages - 1)}" th:class="${pageNumber == currentPage} ? 'active'">
+            <a th:href="@{'/user/view-contacts?page=' + pageNumber}" th:text="${pageNumber + 1}"></a>
+        </li>
+        <li th:if="${currentPage < totalPages - 1}">
+            <a th:href="@{/user/view-contacts(page=${currentPage + 1})}">Next »</a>
+        </li>
+    </ul>
+</div>
+		-->
 		
 		</div>
-	
 	</div>
+	</div>
+	<div class="pagination">
+	
+	
+  			<a href="#">&laquo;</a>
+  			<span th:classappend="${currentPage==i-1 ? 'active':''}" th:each="i : ${#numbers.sequence(1,totalPages)}"><a th:href="@{'/user/view-contacts/'+${i-1}}"><span th:text="${i}"></span></a></span>
+ 			
+  			<a href="#">&raquo;</a>
+  			
+  
+	</div>
+
+	
 	
 	
 <script src="/user/js/script.js"></script>

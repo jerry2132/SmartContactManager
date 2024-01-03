@@ -10,9 +10,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Set;
-
+import org.springframework.data.domain.Pageable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.userdetails.UserDetails;
 //import org.springframework.security.core.Authentication;
 //import org.springframework.security.core.authority.AuthorityUtils;
@@ -21,6 +23,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 //import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +33,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.entity.Contact;
 import com.example.entity.User;
+import com.example.repository.ContactRepository;
 import com.example.service.ContactService;
 import com.example.service.UserService;
 import com.example.userdetails.CustomUserDetailsServiceImpl;
@@ -44,16 +48,19 @@ public class UserController {
 	private CustomUserDetailsServiceImpl customUserDetailsServiceImpl;
 	
 	@Autowired
+	private ContactRepository contactRepository;
+	
+	@Autowired
 	private UserService userService;
 	
 	@Autowired
 	private ContactService contactService;
+	
 	@ModelAttribute
 	public void commonDashboard(Model model,Principal principal) {
 		
 		UserDetails userDetails = customUserDetailsServiceImpl.loadUserByUsername(principal.getName());
 		model.addAttribute("userdetails", userDetails);
-		
 	}
 	
 	@RequestMapping("/dashboard")
@@ -135,15 +142,29 @@ public class UserController {
 			return "redirect:/user/contact-status";
 		}
 		
-		@GetMapping("/view-contacts")
-		public String viewContacts(Model model,Principal principal) {
+		@GetMapping("/view-contacts/{page}")
+		public String viewContacts(@PathVariable("page") Integer page ,Model model,Principal principal) {
 			
 			UserDetails userDetails = customUserDetailsServiceImpl.loadUserByUsername(principal.getName());
 			User user = userService.findByEmail(userDetails.getUsername());
 			
-			List<Contact> contacts = user.getContacts();
+			Pageable pageable = PageRequest.of(page, 5);
 			
-			model.addAttribute("contacts", contacts);
+			Page<Contact> allContact = contactRepository.findContactsByUser(user, pageable);
+			
+			model.addAttribute("contacts" , allContact);
+			model.addAttribute("currentPage" , page);
+			model.addAttribute("totalPages",allContact.getTotalPages());
+			
+//			Pageable pageable = PageRequest.of(0, 5);
+//			Page<Contact> contactPage = contactRepository.findByUser(user, pageable);
+			//List<Contact> contacts = user.getContacts();
+//			contactRepository.findAll(PageRequest.of(0, 5));
+//			model.addAttribute("contacts", contactPage.getContent());
+//			model.addAttribute("curentPage" , page);
+//			model.addAttribute("totalPages",contactPage.getTotalPages());
+//			
+			
 			
 			return "user/view-contacts";
 		}
