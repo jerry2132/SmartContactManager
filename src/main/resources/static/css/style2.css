@@ -1,66 +1,90 @@
 .container1 {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-evenly; /* Adjust as needed */
-            margin-top:70px;
-            
-        }
-        
-.container1 p {
-	
-	font-size:40px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-evenly; /* Adjust as needed */
+	margin-top: 70px;
 }
-        
-        .container-wrapper {
-    		display: flex;
-		}
 
-        /* Card styling */
-       .card {
-        	 background-color:   #EC8565;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            margin-right: 30px;
-            margin-top:20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-           /* margin: 20px 0px;  Adjust margin as needed */
-            width: 325px;
-            /*background-color: #fff;*/
-            transition: transform 0.3s ease-in-out;
-            z-index: 1;
-        }
+.container1 p {
+	font-size: 40px;
+}
 
-        .card:hover {
-        	background-color: #EF2632;
-            transform: scale(1.05);
-        }
+.container-wrapper {
+	display: flex;
+}
 
-        /* Card content styling */
-        .card-content {
-        	align-items: center;
-            padding: 15px;
-        }
+/* Card styling */
+.card {
+	background-color: #EC8565;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	margin-right: 30px;
+	margin-top: 20px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	overflow: hidden;
+	/* margin: 20px 0px;  Adjust margin as needed */
+	width: 325px;
+	/*background-color: #fff;*/
+	transition: transform 0.3s ease-in-out;
+	z-index: 1;
+}
 
-        .card h3 {
-            margin-top: 0;
-        }
+.card:hover {
+	background-color: #EF2632;
+	transform: scale(1.05);
+}
 
-        .card i {
-            margin: 0;
-            font-size:12px;
-            font-weight:bold;
-        }
+/* Card content styling */
+.card-content {
+	align-items: center;
+	padding: 15px;
+}
 
-        .card img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 4px;
-            margin-top: 10px;
-        }
-        
-        .contact-info label,
-		.contact-info p {
-    		display: inline-block;
-    		margin-right: 10px; /* Adjust the value as needed for spacing */
-		}
+.card h3 {
+	margin-top: 0;
+}
+
+.card i {
+	margin: 0;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+.card img {
+	max-width: 100%;
+	height: auto;
+	border-radius: 4px;
+	margin-top: 10px;
+}
+
+.contact-info label, .contact-info p {
+	display: inline-block;
+	margin-right: 10px; /* Adjust the value as needed for spacing */
+}
+
+.pagination {
+	display: flex;
+	justify-content: center;
+	margin-top: 40px;
+}
+
+.pagination a {
+	color: black;
+	float: center;
+	padding: 8px 16px;
+	text-decoration: none;
+	transition: background-color .3s;
+	border: 1px solid #ddd;
+	font-size: 22px;
+}
+
+.pagination span.active {
+	background-color: #4CAF50;
+	color: white;
+	border: 1px solid #ddd;
+	margin-bottom:20px;
+}
+
+.pagination a:hover:not(.active) {
+	background-color: #ddd;
+}

@@ -8,7 +8,7 @@
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet">
 <link href="../static/css/style2.css" th:href="@{/css/style2.css}" rel="stylesheet">
-<style>
+<!--  <style>
 .pagination {
   display: flex;
   justify-content:center;
@@ -33,7 +33,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
 .pagination a:hover:not(.active) {background-color: #ddd;}
 </style>
-
+-->
 </head>
 <body>
 
@@ -134,13 +134,16 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 		</div>
 	</div>
 	</div>
-	<div class="pagination">
+	<div class="pagination" >
 	
-	
-  			<a href="#">&laquo;</a>
+		<div th:if="${totalPages > 0}">
+				<span th:if="${currentPage != 0}"> <a th:href="@{'/user/view-contacts/'+${currentPage-1}}">&laquo;</a> </span>
   			<span th:classappend="${currentPage==i-1 ? 'active':''}" th:each="i : ${#numbers.sequence(1,totalPages)}"><a th:href="@{'/user/view-contacts/'+${i-1}}"><span th:text="${i}"></span></a></span>
  			
-  			<a href="#">&raquo;</a>
+  			<span th:if="${currentPage+1 != totalPages}"><a th:href="@{'/user/view-contacts/'+${currentPage+1}}">&raquo;</a></span>
+		
+		</div>
+  			
   			
   
 	</div>

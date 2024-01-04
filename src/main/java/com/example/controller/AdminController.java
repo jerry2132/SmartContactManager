@@ -7,14 +7,17 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 import java.sql.Date;
-
+import org.springframework.data.domain.Pageable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,6 +30,8 @@ import java.util.List;
 
 import com.example.entity.Contact;
 import com.example.entity.User;
+import com.example.repository.ContactRepository;
+import com.example.repository.UserRepository;
 import com.example.service.ContactService;
 import com.example.service.UserService;
 import com.example.userdetails.CustomUserDetailsServiceImpl;
@@ -50,6 +55,9 @@ public class AdminController {
 	
 	@Autowired
 	private ContactService contactService;
+	
+	@Autowired
+	private ContactRepository contactRepositroy;
 	
 //	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd-HHmmss");
 //	String formattedDateTime = dateFormat.format(new Date());
@@ -161,16 +169,20 @@ public class AdminController {
 		return "redirect:/admin/contact-status";
 	}
 	
-	@GetMapping("/view-contacts")
-	public String viewContacts(Model model,Principal principal) {
+	@GetMapping("/view-contacts/{page}")
+	public String viewContacts(@PathVariable("page") Integer page,Model model,Principal principal) {
 		
 		UserDetails userDetails  = customUserDetailsServiceImpl.loadUserByUsername(principal.getName());
-		
 		User user = userService.findByEmail(userDetails.getUsername());
 		
-		List<Contact> contacts = user.getContacts();
+		Pageable pageable = PageRequest.of(page, 5);
 		
+		Page<Contact> contacts = contactRepositroy.findContactsByUser(user, pageable);
+		
+		System.out.println(page);
 		model.addAttribute("contacts", contacts);
+		model.addAttribute("currentPage",page);
+		model.addAttribute("totalPages" , contacts.getTotalPages());
 		
 		return "admin/view-contacts";
 	}

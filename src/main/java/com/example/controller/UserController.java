@@ -149,12 +149,14 @@ public class UserController {
 			User user = userService.findByEmail(userDetails.getUsername());
 			
 			Pageable pageable = PageRequest.of(page, 5);
-			
+			System.out.println(pageable);
 			Page<Contact> allContact = contactRepository.findContactsByUser(user, pageable);
 			
 			model.addAttribute("contacts" , allContact);
 			model.addAttribute("currentPage" , page);
 			model.addAttribute("totalPages",allContact.getTotalPages());
+			
+			System.out.println(allContact.getTotalPages());
 			
 //			Pageable pageable = PageRequest.of(0, 5);
 //			Page<Contact> contactPage = contactRepository.findByUser(user, pageable);

@@ -56,7 +56,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 			 <div th:each="contact : ${contacts}" class="card">
             <!-- You can customize the card content based on your Contact entity -->
             <div class="card-content">
-            <p th:text="${#lists.size(contacts)}"></p>
+            <!--  <p th:text="${#lists.size(contacts)}"></p>-->
             <h3 th:text="${contact.name}"></h3>
             <img th:src="@{/images/{imageName}(imageName=${contact.image})}" alt="Contact Image"/>
             <div class="contact-info">
@@ -78,6 +78,21 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 		
 		</div>
 		</div>
+	
+	<div class="pagination">
+	
+			<div th:if="${totalPages > 0}">
+				<span th:if="${currentPage != 0}"> <a th:href="@{'/admin/view-contacts/'+${currentPage-1}}">&laquo;</a></span>
+  				<span th:classappend="${currentPage==i-1?'active':''}" th:each="i : ${#numbers.sequence(1,totalPages)}"><a th:href="@{'/admin/view-contacts/'+${i-1}}"><span th:text="${i}"></span></a></span>
+ 			
+  				<span th:if="${currentPage+1 != totalPages}"><a th:href="@{'/admin/view-contacts/'+${currentPage+1}}">&raquo;</a></span>
+  			
+			</div>
+			
+  			
+  
+	</div>
+	
 	
 <script src="/admin/js/script.js"></script>
 </body>
