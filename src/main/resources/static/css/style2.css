@@ -24,9 +24,11 @@
 	overflow: hidden;
 	/* margin: 20px 0px;  Adjust margin as needed */
 	width: 325px;
+	height: 400px;
 	/*background-color: #fff;*/
 	transition: transform 0.3s ease-in-out;
 	z-index: 1;
+	position: relative;
 }
 
 .card:hover {
@@ -51,10 +53,11 @@
 }
 
 .card img {
-	max-width: 100%;
-	height: auto;
+	/*max-width: 100%;*/
+	height: 125px;
+	width: 100%;
 	border-radius: 4px;
-	margin-top: 10px;
+	margin-top: 5px;
 }
 
 .contact-info label, .contact-info p {
@@ -88,3 +91,23 @@
 .pagination a:hover:not(.active) {
 	background-color: #ddd;
 }
+
+.card button{
+	
+	position: absolute;
+    bottom: 5px;
+    cursor: pointer;
+    left: 70px; /* Adjust this value based on your preference 
+	margin-top:20px;*/
+}
+
+.card button:last-child {
+    left: 160px; /* Adjust the left position based on your preference */
+}
+
+/*.profile_image {
+	
+	height: 1920px;
+	width:1080px;
+	
+}*/

@@ -56,9 +56,12 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 			 <div th:each="contact : ${contacts}" class="card">
             <!-- You can customize the card content based on your Contact entity -->
             <div class="card-content">
-            <!--  <p th:text="${#lists.size(contacts)}"></p>-->
+            <!--  <p th:text="${#lists.size(contacts)}"></p>
+            
+            <img th:src="@{'/img/' + ${contact.image}}" alt="profile photo"/>-->
             
             <img th:src="@{'/img/' + ${contact.image}}" alt="profile photo"/>
+            
 
             
             <h3 th:text="${contact.name}"></h3>
@@ -69,10 +72,16 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
             
             <label for="image">PHONE : </label><i th:text="${contact.phone}"></i><br>
             <label for="image">WORK : </label><i th:text="${contact.work}"></i><br>
-            <label for="image">DESCRIPTION : </label><i th:text="${contact.description}"></i><br>
-            <!--  <i th:text="${contact.image}"></i>-->
-           <button><i class="fa-solid fa-pen"></i>	UPDATE</button>
+            <!-- <label for="image">DESCRIPTION : </label><i th:text="${contact.description}"></i><br>
+             <i th:text="${contact.image}"></i>-->
+             
+             <div th:if="${#strings.length(contact.description) > 50}">
+        		<label for="image">DESCRIPTION : </label><i th:text="${#strings.substring(contact.description, 0, 120)}"></i>
+        		<a th:href="@{/admin/details/{id}(id=${contact.cid})}">Read More</a>
+    		</div>
+           
            <button><i class="fa-solid fa-delete-left"></i>	DELETE</button>
+           <button><i class="fa-solid fa-pen"></i>	UPDATE</button>
             </div>
             
             </div>

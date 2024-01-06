@@ -27,6 +27,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 import com.example.entity.Contact;
 import com.example.entity.User;
@@ -57,7 +58,9 @@ public class AdminController {
 	private ContactService contactService;
 	
 	@Autowired
-	private ContactRepository contactRepositroy;
+	private ContactRepository contactRepository;
+	
+//	private static String uploadDirectory = System.getProperty("user.dir") + "/src/target/uploads";
 	
 //	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd-HHmmss");
 //	String formattedDateTime = dateFormat.format(new Date());
@@ -118,6 +121,7 @@ public class AdminController {
 			if(file.isEmpty()) {
 				
 				System.out.println("file is empty");
+				contact.setImage("rec.png");
 				
 			}else {
 				
@@ -130,7 +134,7 @@ public class AdminController {
 				 
 				 
 				
-				File saveFile = new ClassPathResource("static/img").getFile();
+				//File saveFile = new ClassPathResource("static/img").getFile();
 				
 //				 File saveFile = new File(directoryPath, uniqueFilename);
 				 
@@ -138,11 +142,15 @@ public class AdminController {
 //		                saveFile.getParentFile().mkdirs();
 //		            } 
 				
-				Path path = Paths.get(saveFile.getAbsolutePath()+File.separator + uniqueFilename);
+			//Path path = Paths.get(saveFile.getAbsolutePath()+File.separator + uniqueFilename);
+			String uploadDirectory = "/src/main/resources/static/img/";
+				Path path = Paths.get(uploadDirectory,uniqueFilename);
 				
 //				Files.createDirectories(path.getParent());
 				
 //				Files.createDirectories(saveFile.toPath().getParent());
+				
+				//Files.createDirectories(path.getParent());
 				
 				Files.copy(file.getInputStream(), path , StandardCopyOption.REPLACE_EXISTING);
 				
@@ -177,7 +185,7 @@ public class AdminController {
 		
 		Pageable pageable = PageRequest.of(page, 5);
 		
-		Page<Contact> contacts = contactRepositroy.findContactsByUser(user, pageable);
+		Page<Contact> contacts = contactRepository.findContactsByUser(user, pageable);
 		
 		//System.out.println(page);
 		model.addAttribute("contacts", contacts);
@@ -185,5 +193,16 @@ public class AdminController {
 		model.addAttribute("totalPages" , contacts.getTotalPages());
 		
 		return "admin/view-contacts";
+	}
+	
+	@GetMapping("/details/{cid}")
+	public String showIndividualContactDetails(@PathVariable("cid")int contactId,Model model) {
+		
+		Optional<Contact> contactOptional = contactRepository.findById(contactId); 
+		Contact contact = contactOptional.get();
+		
+		model.addAttribute("contacts", contact);
+		
+		return "admin/details";
 	}
 }

@@ -8,7 +8,9 @@ import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import org.springframework.data.domain.Pageable;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -110,6 +112,7 @@ public class UserController {
 			if(file.isEmpty()) {
 				
 				System.out.println("file is emptyt");
+				contact.setImage("rec.png");
 				
 			}else {
 				
@@ -170,4 +173,17 @@ public class UserController {
 			
 			return "user/view-contacts";
 		}
+		
+		
+		// Add this method to your controller
+		@GetMapping("/details/{cid}")
+		public String showIndividualContactDetails(@PathVariable("cid") int contactId, Model model) {
+		    // Fetch contact details by ID and add them to the model
+		    Optional<Contact> contactOptional = contactRepository.findById(contactId);
+		    Contact contact = contactOptional.get();
+		    
+		    model.addAttribute("contacts",contact);
+		    return "user/details";
+		}
+
 }
