@@ -150,7 +150,7 @@ public class AdminController {
 				
 				 //contact.setImage(uniqueFilename);
 				
-				System.out.println("uploded");
+				//System.out.println("uploded");
 			}
 		
 		contact.setUser(user);
@@ -179,7 +179,7 @@ public class AdminController {
 		
 		Page<Contact> contacts = contactRepositroy.findContactsByUser(user, pageable);
 		
-		System.out.println(page);
+		//System.out.println(page);
 		model.addAttribute("contacts", contacts);
 		model.addAttribute("currentPage",page);
 		model.addAttribute("totalPages" , contacts.getTotalPages());

@@ -30,7 +30,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
   <div class="sidebar">
     <span class="close-btn" onclick="toggleSidebar()">×</span>
     <a href="#" th:href="@{/admin/dashboard}" class="item"><i class="fa-solid fa-house"></i>	HOME </a>
-    <a href="#" th:href="@{/admin/view-contacts}" class="item"> <i class="fa-solid fa-address-book"></i>	VIEW CONTACTS </a>
+    <a href="#" th:href="@{/admin/view-contacts/0}" class="item"> <i class="fa-solid fa-address-book"></i>	VIEW CONTACTS </a>
     <a href="#" th:href="@{/admin/add-contacts}" class="item"><i class="fa-solid fa-user-plus"></i>	ADD CONTACTS </a>
     <a href="#" class="item"><i class="fa-solid fa-user"></i>	YOUR PROFILE </a>
     <a href="#" class="item"><i class="fa-solid fa-gear"></i>	SETTINGS </a>
@@ -57,8 +57,11 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
             <!-- You can customize the card content based on your Contact entity -->
             <div class="card-content">
             <!--  <p th:text="${#lists.size(contacts)}"></p>-->
+            
+            <img th:src="@{'/img/' + ${contact.image}}" alt="profile photo"/>
+
+            
             <h3 th:text="${contact.name}"></h3>
-            <img th:src="@{/images/{imageName}(imageName=${contact.image})}" alt="Contact Image"/>
             <div class="contact-info">
             
             <label for="image">CONTACT ID : </label><i th:text="${'CSMID' + contact.cid}"></i><br>
@@ -67,6 +70,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
             <label for="image">PHONE : </label><i th:text="${contact.phone}"></i><br>
             <label for="image">WORK : </label><i th:text="${contact.work}"></i><br>
             <label for="image">DESCRIPTION : </label><i th:text="${contact.description}"></i><br>
+            <!--  <i th:text="${contact.image}"></i>-->
            <button><i class="fa-solid fa-pen"></i>	UPDATE</button>
            <button><i class="fa-solid fa-delete-left"></i>	DELETE</button>
             </div>

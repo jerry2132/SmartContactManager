@@ -54,7 +54,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
   <div class="sidebar">
     <span class="close-btn" onclick="toggleSidebar()">×</span>
     <a href="#" th:href="@{/user/dashboard}" class="item"><i class="fa-solid fa-house"></i> HOME </a>
-    <a href="#" th:href="@{/user/view-contacts}" class="item"> <i class="fa-solid fa-address-book"></i> VIEW CONTACTS </a>
+    <a href="#" th:href="@{/user/view-contacts/0}" class="item"> <i class="fa-solid fa-address-book"></i> VIEW CONTACTS </a>
     <a href="#" th:href="@{/user/add-contacts}" class="item"><i class="fa-solid fa-user-plus"></i> ADD CONTACTS </a>
     <a href="#" class="item"><i class="fa-solid fa-user"></i> YOUR PROFILE </a>
     <a href="#" class="item"><i class="fa-solid fa-gear"></i> SETTINGS </a>
@@ -82,7 +82,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
             <!-- You can customize the card content based on your Contact entity -->
             <div class="card-content">
             
-            <img th:src="@{/images/{imageName}(imageName=${contact.image})}" alt="Contact Image"/>
+            <img th:src="@{'/img/' + ${contact.image}}" alt="profile photo"/>
             <h3 th:text="${contact.name}"></h3>
             
             <div class="contact-info">

@@ -156,7 +156,7 @@ public class UserController {
 			model.addAttribute("currentPage" , page);
 			model.addAttribute("totalPages",allContact.getTotalPages());
 			
-			System.out.println(allContact.getTotalPages());
+			//System.out.println(allContact.getTotalPages());
 			
 //			Pageable pageable = PageRequest.of(0, 5);
 //			Page<Contact> contactPage = contactRepository.findByUser(user, pageable);
