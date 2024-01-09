@@ -98,7 +98,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         		<a th:href="@{/user/details/{id}(id=${contact.cid})}">Read More</a>
     		</div>
             <button><i class="fa-solid fa-pen"></i>	UPDATE</button>
-           <button><i class="fa-solid fa-delete-left"></i>	DELETE</button>
+           <a th:href="@{'/user/delete/' + ${contact.cid}}"><button> <i class="fa-solid fa-delete-left"></i>	DELETE</button></a>
             </div>
             
             </div>

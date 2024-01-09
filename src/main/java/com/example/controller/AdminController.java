@@ -196,12 +196,16 @@ public class AdminController {
 	}
 	
 	@GetMapping("/details/{cid}")
-	public String showIndividualContactDetails(@PathVariable("cid")int contactId,Model model) {
+	public String showIndividualContactDetails(@PathVariable("cid")int contactId,Model model,Principal principal) {
+		
+		UserDetails userDetails  = customUserDetailsServiceImpl.loadUserByUsername(principal.getName());
+		User user = userService.findByEmail(userDetails.getUsername());
 		
 		Optional<Contact> contactOptional = contactRepository.findById(contactId); 
 		Contact contact = contactOptional.get();
 		
-		model.addAttribute("contacts", contact);
+		if(user.getId() == contact.getUser().getId())
+			model.addAttribute("contacts", contact);
 		
 		return "admin/details";
 	}

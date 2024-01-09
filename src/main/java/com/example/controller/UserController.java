@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import org.springframework.data.domain.Pageable;
+import org.aspectj.bridge.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
@@ -41,6 +42,7 @@ import com.example.service.UserService;
 import com.example.userdetails.CustomUserDetailsServiceImpl;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/user")
@@ -177,13 +179,40 @@ public class UserController {
 		
 		// Add this method to your controller
 		@GetMapping("/details/{cid}")
-		public String showIndividualContactDetails(@PathVariable("cid") int contactId, Model model) {
+		public String showIndividualContactDetails(@PathVariable("cid") int contactId, Model model, Principal principal) {
 		    // Fetch contact details by ID and add them to the model
+			
+			UserDetails userDetails = customUserDetailsServiceImpl.loadUserByUsername(principal.getName());
+			User user = userService.findByEmail(userDetails.getUsername());
+			
 		    Optional<Contact> contactOptional = contactRepository.findById(contactId);
 		    Contact contact = contactOptional.get();
 		    
-		    model.addAttribute("contacts",contact);
+		    if(user.getId() == contact.getUser().getId())
+		    	model.addAttribute("contacts",contact);
+		    
+		    
 		    return "user/details";
+		}
+		
+		@GetMapping("/delete/{cid}")
+		public String deleteContact(@PathVariable("cid")Integer contactId,Model model,Principal principal,RedirectAttributes redirectAttributes) {
+			
+			UserDetails userDetails = customUserDetailsServiceImpl.loadUserByUsername(principal.getName());
+			User user = userService.findByEmail(userDetails.getUsername());
+			
+			 Optional<Contact> contactOptional = contactRepository.findById(contactId);
+			 Contact contact = contactOptional.get();
+			    
+			    
+			    	contactRepository.delete(contact);
+			    
+			    
+			    redirectAttributes.addFlashAttribute("message","Contact deleted successfully");
+			    
+//			    session.setAttribute("message", new Message("Contact deleted successfully", "sucsess"));
+			
+			    return "redirect:/view-contacts/0";
 		}
 
 }
