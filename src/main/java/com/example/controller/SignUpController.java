@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -77,19 +78,42 @@ public class SignUpController {
 	            user.setImgUrl(uniqueFilename);
 	            
 //	            File saveFile = new ClassPathResource("static/registeredImage").getFile();
-	            
-	            String uploadDirectory = "/src/main/resources/static/registeredImage/";
-	            Path path = Paths.get(uploadDirectory,uniqueFilename);
-	            
+//	            
+//	            String uploadDirectory = "/src/main/resources/static/registeredImage/";
+//	            Path path = Paths.get(uploadDirectory,uniqueFilename);
+//	            
 //	            Path path = Paths.get(saveFile.getAbsolutePath()+File.separator + uniqueFilename);
 	            
 //	            Files.createDirectories(path.getParent());
 	            
-	            Files.copy(file.getInputStream(), path , StandardCopyOption.REPLACE_EXISTING);
-	            
-	            System.out.println(path);
-	 		}
+//	            Files.copy(file.getInputStream(), path , StandardCopyOption.REPLACE_EXISTING);
+//	            
+//	            System.out.println(path);
+//	 		}
 	 		
+	            String uploadDirectory;
+				try {
+					
+					if (System.getProperty("user.dir").contains("Intellij Projects")) {
+					    uploadDirectory = "src/main/resources/static/registeredImage/";
+					}
+					else {
+						ClassPathResource classPathResource = new ClassPathResource("static/img/");
+						uploadDirectory = classPathResource.getFile().getAbsolutePath();
+					}
+					
+					Path path = Paths.get(uploadDirectory, uniqueFilename);
+					Files.createDirectories(path.getParent());
+					System.out.println(path.toAbsolutePath());
+					Files.copy(file.getInputStream(), path , StandardCopyOption.REPLACE_EXISTING);
+					
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
+				}
 	 		
 	 		userService.save(user);
 //	 		model.addAttribute("message", "user added successfully");
