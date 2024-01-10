@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -107,7 +108,7 @@ public class UserController {
 				Principal principal
 				,RedirectAttributes redirectAttributes) {
 			
-			try {	
+			
 			UserDetails userDetails = customUserDetailsServiceImpl.loadUserByUsername(principal.getName());
 			User user = userService.findByEmail(userDetails.getUsername());
 			
@@ -123,17 +124,54 @@ public class UserController {
 				
 			contact.setImage(uniqueFilename);
 			
-			File saveFile = new ClassPathResource("static/img").getFile();
+//			File saveFile = new ClassPathResource("static/img").getFile();
 			
-			Path path = Paths.get(saveFile.getAbsolutePath()+File.separator + uniqueFilename);
+//			Path path = Paths.get(saveFile.getAbsolutePath()+File.separator + uniqueFilename);
 			
-			Files.copy(file.getInputStream(), path , StandardCopyOption.REPLACE_EXISTING);
+//			
+//			 String uploadDirectory = "src" + File.separator + "main" + File.separator + "resources" + File.separator + 
+//					 "static" + File.separator + "img" + File.separator;
 			
-			System.out.println("upoaded");
 			
+			String uploadDirectory;
+			try {
+				
+				if (System.getProperty("user.dir").contains("Intellij Projects")) {
+				    uploadDirectory = "src/main/resources/static/img/";
+				}
+				else {
+					ClassPathResource classPathResource = new ClassPathResource("static/img/");
+					uploadDirectory = classPathResource.getFile().getAbsolutePath();
+				}
+				
+				Path path = Paths.get(uploadDirectory, uniqueFilename);
+				Files.createDirectories(path.getParent());
+				System.out.println(path.toAbsolutePath());
+				Files.copy(file.getInputStream(), path , StandardCopyOption.REPLACE_EXISTING);
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
+			}
+//			Files.createDirectories(path.getParent());
+			
+			
+			
+//			try {
+//			
+//			
+//			System.out.println("upoaded");
+//			}catch(Exception e) {
+//				
+//			redirectAttributes.addFlashAttribute("successMessage","error"+e.getMessage());
+//			}
+//			
+//			}
 			
 			contact.setUser(user);
+			try {
+				
 			
 			
 				contactService.save(contact);

@@ -92,7 +92,7 @@
 	background-color: #ddd;
 }
 
-.card a{
+.card .deleteContact{
 	
 	position: absolute;
     bottom: 5px;
@@ -100,8 +100,12 @@
     left: 70px; /* Adjust this value based on your preference 
 	margin-top:20px;*/
 }
+/*.card button {
+	
+	cursor: pointer;
+}*/
 
-.card a:last-child {
+.card .deleteContact:last-child {
     left: 160px; /* Adjust the left position based on your preference */
 }
 

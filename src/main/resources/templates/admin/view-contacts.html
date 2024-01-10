@@ -61,6 +61,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
             <img th:src="@{'/img/' + ${contact.image}}" alt="profile photo"/>-->
             
             <img th:src="@{'/img/' + ${contact.image}}" alt="profile photo"/>
+        <!--   <img th:src="@{'/img/' + ${contact.image} + '?v=' + ${#dates.format(#dates.createNow(), 'yyyyMMddHHmmss')}" 
+         class="profile_image" alt="profile photo"/>-->
+
             
 
             
@@ -73,15 +76,24 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
             <label for="image">PHONE : </label><i th:text="${contact.phone}"></i><br>
             <label for="image">WORK : </label><i th:text="${contact.work}"></i><br>
             <!-- <label for="image">DESCRIPTION : </label><i th:text="${contact.description}"></i><br>
-             <i th:text="${contact.image}"></i>-->
+             <i th:text="${contact.image}"></i>  th:if="${#strings.length(contact.description) > 50}"-->
              
              <div th:if="${#strings.length(contact.description) > 50}">
-        		<label for="image">DESCRIPTION : </label><i th:text="${#strings.substring(contact.description, 0, 120)}"></i>
+        		<label for="image">DESCRIPTION : </label><i  
+				th:text="${#strings.substring(contact.description, 0, 80)}"></i>
         		<a th:href="@{/admin/details/{id}(id=${contact.cid})}">Read More</a>
     		</div>
+    		
+    		
            
-            <a><button><i class="fa-solid fa-pen"></i>	UPDATE</button> </a>
-            <a th:onclick="'deleteContact(' + ${contact.cid} + ');'"><button><i class="fa-solid fa-delete-left"></i>	DELETE</button></a>
+        <div th:if="${#strings.length(contact.description) < 50}">
+    			<label for="image">DESCRIPTION : </label>
+    			<i th:text="${contact.description}"></i>
+    			 
+			</div>
+         
+            <a class="deleteContact"><button><i class="fa-solid fa-pen"></i>	UPDATE</button> </a>
+            <a  class="deleteContact" th:onclick="'deleteContact(' + ${contact.cid} + ');'"><button><i class="fa-solid fa-delete-left"></i>	DELETE</button></a>
           
             </div>
             

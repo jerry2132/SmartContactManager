@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -143,22 +144,45 @@ public class AdminController {
 //		            } 
 				
 			//Path path = Paths.get(saveFile.getAbsolutePath()+File.separator + uniqueFilename);
-			String uploadDirectory = "/src/main/resources/static/img/";
-				Path path = Paths.get(uploadDirectory,uniqueFilename);
+//			String uploadDirectory = "/src/main/resources/static/img/";
+//				Path path = Paths.get(uploadDirectory,uniqueFilename);
 				
 //				Files.createDirectories(path.getParent());
 				
 //				Files.createDirectories(saveFile.toPath().getParent());
 				
-				//Files.createDirectories(path.getParent());
-				
-				Files.copy(file.getInputStream(), path , StandardCopyOption.REPLACE_EXISTING);
-				
+//				Files.createDirectories(path.getParent());
+//				
+//				Files.copy(file.getInputStream(), path , StandardCopyOption.REPLACE_EXISTING);
+//				
 //				file.transferTo(saveFile);
 				
 				 //contact.setImage(uniqueFilename);
 				
 				//System.out.println("uploded");
+			
+			String uploadDirectory;
+			try {
+				
+				if (System.getProperty("user.dir").contains("Intellij Projects")) {
+				    uploadDirectory = "src/main/resources/static/img/";
+				}
+				else {
+					ClassPathResource classPathResource = new ClassPathResource("static/img/");
+					uploadDirectory = classPathResource.getFile().getAbsolutePath();
+				}
+				
+				Path path = Paths.get(uploadDirectory, uniqueFilename);
+				Files.createDirectories(path.getParent());
+				System.out.println(path.toAbsolutePath());
+				Files.copy(file.getInputStream(), path , StandardCopyOption.REPLACE_EXISTING);
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
 			}
 		
 		contact.setUser(user);

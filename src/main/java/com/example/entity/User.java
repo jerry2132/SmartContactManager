@@ -48,6 +48,7 @@ public class User {
 	
 	@NotNull(message = "BOX MUST BE CHECKED")
 	private boolean enabled;
+	
 	private String imgUrl;
 	
 	@Transient

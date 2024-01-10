@@ -91,7 +91,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
             <!-- You can customize the card content based on your Contact entity -->
             <div class="card-content">
             
-            <img th:src="@{'/img/' + ${contact.image}}" class="profile_image" alt="profile photo"/>
+             <img th:src="@{'/img/' + ${contact.image}}" alt="profile photo"/>
             <h3 th:text="${contact.name}"></h3>
             
             <div class="contact-info">

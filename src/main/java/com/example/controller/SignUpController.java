@@ -49,7 +49,7 @@ public class SignUpController {
 	 			,RedirectAttributes redirectAttributes) {
 	 		
 	 	try {
-	 		
+
 	 			User finduser = userRepository.findUserByEmail(user.getEmail());
 	 		
 	 		if(bindingresult.hasErrors()) {
@@ -76,13 +76,18 @@ public class SignUpController {
 				
 	            user.setImgUrl(uniqueFilename);
 	            
-	            File saveFile = new ClassPathResource("static/registeredImage").getFile();
+//	            File saveFile = new ClassPathResource("static/registeredImage").getFile();
 	            
-	            Path path = Paths.get(saveFile.getAbsolutePath()+File.separator + uniqueFilename);
+	            String uploadDirectory = "/src/main/resources/static/registeredImage/";
+	            Path path = Paths.get(uploadDirectory,uniqueFilename);
+	            
+//	            Path path = Paths.get(saveFile.getAbsolutePath()+File.separator + uniqueFilename);
+	            
+//	            Files.createDirectories(path.getParent());
 	            
 	            Files.copy(file.getInputStream(), path , StandardCopyOption.REPLACE_EXISTING);
 	            
-	            System.out.println("File uploaded");
+	            System.out.println(path);
 	 		}
 	 		
 	 		
@@ -92,7 +97,7 @@ public class SignUpController {
 	 		
 	 	}catch(Exception e) {
 	 		
-	 		redirectAttributes.addFlashAttribute("errorMessage", "User saved succcessfully"+e.getMessage());
+	 		redirectAttributes.addFlashAttribute("errorMessage", "Error saving User "+e.getMessage());
 	 	}
 	 		
 	 		
