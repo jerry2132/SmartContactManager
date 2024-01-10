@@ -209,4 +209,19 @@ public class AdminController {
 		
 		return "admin/details";
 	}
+	
+	@GetMapping("/delete/{cid}")
+	public String deleteContact(@PathVariable("cid")Integer contactId,Model model,RedirectAttributes redirectAttributes) {
+		
+		try {
+			
+			contactService.deleteContact(contactId);
+			redirectAttributes.addFlashAttribute("message", "contact saved successfully");
+		}catch(Exception e) {
+			
+			redirectAttributes.addFlashAttribute("message", "contact not found");
+		}
+		
+		return "redirect:/admin/view-contacts/0";
+	}
 }

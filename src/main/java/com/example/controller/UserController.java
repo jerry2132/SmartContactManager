@@ -196,8 +196,7 @@ public class UserController {
 		}
 		
 		@GetMapping("/delete/{cid}")
-		public String deleteContact(@PathVariable("cid")Integer contactId,Model model,Principal principal,RedirectAttributes redirectAttributes
-				,HttpSession session) {
+		public String deleteContact(@PathVariable("cid")Integer contactId,Model model,Principal principal,RedirectAttributes redirectAttributes) {
 			
 //			UserDetails userDetails = customUserDetailsServiceImpl.loadUserByUsername(principal.getName());
 //			User user = userService.findByEmail(userDetails.getUsername());

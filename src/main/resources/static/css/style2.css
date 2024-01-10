@@ -92,7 +92,7 @@
 	background-color: #ddd;
 }
 
-.card button{
+.card a{
 	
 	position: absolute;
     bottom: 5px;
@@ -101,7 +101,7 @@
 	margin-top:20px;*/
 }
 
-.card button:last-child {
+.card a:last-child {
     left: 160px; /* Adjust the left position based on your preference */
 }
 
