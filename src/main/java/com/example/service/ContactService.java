@@ -11,4 +11,5 @@ public interface ContactService {
 
 	Contact save(Contact contact);
 	List<Contact> findAllContacts();
+	public void deleteContact(Integer contactId);
 }

@@ -1,6 +1,7 @@
 package com.example.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,6 +45,31 @@ public class ContactServiceImpl implements ContactService{
 	public List<Contact> findAllContacts() {
 		// TODO Auto-generated method stub
 		return contactRepository.findAll();
+	}
+
+
+
+	@Override
+	public void  deleteContact(Integer contactId) {
+		// TODO Auto-generated method stub
+		
+		Optional<Contact> contactOptional = contactRepository.findById(contactId);
+		
+		if(contactOptional.isPresent()) {
+			Contact contact = contactOptional.get();
+			
+			contact.setUser(null);
+			
+			contactRepository.save(contact);
+			
+			contactRepository.deleteById(contactId);
+		}	
+//		}else {
+//			throw new ContactNotFoundException("not contact found "+contactId +"  not found");
+//		}
+//		
+		
+		//return null;
 	}
 
 	

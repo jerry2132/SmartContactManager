@@ -196,23 +196,44 @@ public class UserController {
 		}
 		
 		@GetMapping("/delete/{cid}")
-		public String deleteContact(@PathVariable("cid")Integer contactId,Model model,Principal principal,RedirectAttributes redirectAttributes) {
+		public String deleteContact(@PathVariable("cid")Integer contactId,Model model,Principal principal,RedirectAttributes redirectAttributes
+				,HttpSession session) {
 			
-			UserDetails userDetails = customUserDetailsServiceImpl.loadUserByUsername(principal.getName());
-			User user = userService.findByEmail(userDetails.getUsername());
+//			UserDetails userDetails = customUserDetailsServiceImpl.loadUserByUsername(principal.getName());
+//			User user = userService.findByEmail(userDetails.getUsername());
 			
-			 Optional<Contact> contactOptional = contactRepository.findById(contactId);
-			 Contact contact = contactOptional.get();
-			    
-			    
-			    	contactRepository.delete(contact);
-			    
-			    
-			    redirectAttributes.addFlashAttribute("message","Contact deleted successfully");
-			    
-//			    session.setAttribute("message", new Message("Contact deleted successfully", "sucsess"));
+//			 Optional<Contact> contactOptional = contactRepository.findById(contactId);
+//			 
+//			 if(contactOptional.isPresent()) {
+//				 
+//				 Contact contact = contactOptional.get();
+//				    
+//				 contact.setUser(null);
+//				 
+//				 contactRepository.save(contact);
+//				    
+//				    contactRepository.deleteById(contact.getCid());
+//				    
+//				    
+//			    redirectAttributes.addFlashAttribute("message","Contact deleted successfully");
+//				    
+//				    session.setAttribute("message", "contact deleted sucess");
+				    
+//				    model.addAttribute("message", "deleredd");
+//			 }
 			
-			    return "redirect:/view-contacts/0";
+			try {
+				
+				contactService.deleteContact(contactId);
+				redirectAttributes.addFlashAttribute("message","Contact deleted successfully");
+				
+			}catch(Exception e) {
+				
+				redirectAttributes.addFlashAttribute("message","Contact not found");
+			}
+			
+			
+			    return "redirect:/user/view-contacts/0";
 		}
 
 }

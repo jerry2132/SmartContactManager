@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <title>See Contacts here</title>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <link rel="stylesheet" 
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet">
@@ -49,6 +50,13 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
      <span th:text="${userdetails.name}" class="user-name">John Doe</span> 
 </nav>
 
+	
+		<!-- Add this code to display the flash message -->
+<div th:if="${message}">
+    <span th:text="${message}"></span>
+</div>
+
+
 <div class="container-wrapper">
 
   <div class="sidebar">
@@ -68,6 +76,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 	   <button onclick="toggleSidebar()">Toggle Sidebar</button> -->
  
 	</div>
+
 	
 	<div class="container1">
 			
@@ -98,13 +107,13 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         		<a th:href="@{/user/details/{id}(id=${contact.cid})}">Read More</a>
     		</div>
             <button><i class="fa-solid fa-pen"></i>	UPDATE</button>
-           <a th:href="@{'/user/delete/' + ${contact.cid}}"><button> <i class="fa-solid fa-delete-left"></i>	DELETE</button></a>
+           <a th:onclick="'deleteContact(' + ${contact.cid} + ');'"><button> <i class="fa-solid fa-delete-left"></i>	DELETE</button></a>
             </div>
             
             </div>
             
   <!-- Pagination Links 
-<div class="pagination">
+<div class="pagination">    th:href="@{'/user/delete/' + ${contact.cid}}"
     <ul>
         <li th:if="${currentPage > 0}">
             <a th:href="@{/user/view-contacts(page=${currentPage - 1})}">« Previous</a>
@@ -139,6 +148,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 		</div>
 	</div>
 	</div>
+	
+
 	<div class="pagination" >
 	
 		<div th:if="${totalPages > 0}">
