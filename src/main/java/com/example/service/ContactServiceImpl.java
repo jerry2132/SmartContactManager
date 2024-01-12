@@ -1,5 +1,9 @@
 package com.example.service;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
@@ -58,11 +62,18 @@ public class ContactServiceImpl implements ContactService{
 		if(contactOptional.isPresent()) {
 			Contact contact = contactOptional.get();
 			
+			String imagePath = contact.getImage();
+			System.out.println(imagePath);
 			contact.setUser(null);
 			
 			contactRepository.save(contact);
 			
 			contactRepository.deleteById(contactId);
+			
+			if(imagePath != null && !imagePath.isEmpty()) {
+				
+				deleteImageFile(imagePath);
+			}
 		}	
 //		}else {
 //			throw new ContactNotFoundException("not contact found "+contactId +"  not found");
@@ -71,7 +82,19 @@ public class ContactServiceImpl implements ContactService{
 		
 		//return null;
 	}
-
+		
+	public void deleteImageFile(String imagePath) {
+		
+		try {
+			
+			Path imageFilePath = Paths.get("src/main/resources/static/img/",imagePath);
+			Files.deleteIfExists(imageFilePath);
+			System.out.println("File deleted" + imageFilePath);
+		}catch(IOException e) {
+			
+			System.out.println("Error deleting file " + e.getMessage());
+		}
+	}
 	
 	
 	

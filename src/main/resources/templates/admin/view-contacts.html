@@ -92,8 +92,16 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     			 
 			</div>
          
-            <a class="deleteContact"><button><i class="fa-solid fa-pen"></i>	UPDATE</button> </a>
-            <a  class="deleteContact" th:onclick="'deleteContact(' + ${contact.cid} + ');'"><button><i class="fa-solid fa-delete-left"></i>	DELETE</button></a>
+         
+        
+         	<a th:unless="${addContact}" class="deleteContact" th:href="@{'/admin/update-contact/' + ${contact.cid}}">
+    <button style="cursor: pointer">
+        <i class="fa-solid fa-pen"></i> UPDATE
+    </button>
+</a>
+
+
+              <a  class="deleteContact" th:onclick="'deleteContact(' + ${contact.cid} + ');'"><button style="cursor: pointer"><i class="fa-solid fa-delete-left"></i>	DELETE</button></a>
           
             </div>
             

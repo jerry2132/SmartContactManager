@@ -100,6 +100,7 @@ public class AdminController {
 	public String addContacts(Model model) {
 		
 		model.addAttribute("contact", new Contact());
+		model.addAttribute("addContact", true);
 		return "admin/add_contacts_admin";
 	}
 	
@@ -247,5 +248,15 @@ public class AdminController {
 		}
 		
 		return "redirect:/admin/view-contacts/0";
+	}
+	
+	@GetMapping("/update-contact/{cid}")
+	public String updateContact(@PathVariable("cid")Integer contactId,Model model) {
+		
+		Contact contact = contactRepository.findById(contactId).get();
+		model.addAttribute("addContact", false);
+		model.addAttribute("contact", contact);
+		
+		return "admin/add_contacts_admin";
 	}
 }
