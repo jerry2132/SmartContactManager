@@ -100,6 +100,7 @@ public class UserController {
 	public String addContacts(Model model) {
 		
 		model.addAttribute("contact", new Contact());
+		model.addAttribute("addContact", true);
 		return "user/add_contacts_user";
 	}
 		
@@ -273,4 +274,14 @@ public class UserController {
 			    return "redirect:/user/view-contacts/0";
 		}
 
+		
+		@GetMapping("/update-contact/{cid}")
+		public String updateContact(@PathVariable("cid")Integer contactId,Model model) {
+			
+			Contact contact = contactRepository.findById(contactId).get();
+			model.addAttribute("addContact", false);
+			model.addAttribute("contact", contact);
+			
+			return "user/add_contacts_user";
+		}
 }
