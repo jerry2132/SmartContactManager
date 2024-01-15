@@ -52,7 +52,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     	</div>   
 		
 		
-        <form th:action="${addContact ? '/user/process-contact' : '/user/process-update/' + contact.cid}" method="get" th:object="${contact}" enctype="multipart/form-data">
+        <form th:action="${addContact ? '/user/process-contact' : '/user/process-update/' + contact.cid}" method="post" th:object="${contact}" enctype="multipart/form-data">
 
             <label for="name">NAME</label>
             <input th:value="${contact.name}" type="text" id="name" name="name" placeholder="enter your name" required><br>
@@ -62,7 +62,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
 
             <label for="nickname">NICKNAME</label>
-            <input th:value="${contact.nickName}" type="text" id="nickname" name="nickname" placeholder="enter your nickname" required><br>
+            <input th:value="${contact.nickName}" type="text" id="nickname" name="nickName" placeholder="enter your nickname" required><br>
 
             <label for="work">WORK</label>
             <input th:value="${contact.work}" type="text" id="work" name="work" placeholder="enter your work" required><br>

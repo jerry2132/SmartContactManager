@@ -126,7 +126,10 @@ public class ContactServiceImpl implements ContactService {
 			return saveNewImage(existingContact, file);
 		}
 
-		deleteImageFile(existingContact.getImage());
+		if(!existingContact.getImage().equals("rec.png")) {
+			deleteImageFile(existingContact.getImage());
+		}
+		
 
 		if (file == null || file.isEmpty()) {
 

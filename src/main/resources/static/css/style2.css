@@ -115,3 +115,19 @@
 	width:1080px;
 	
 }*/
+
+.details-container1 .detailsImage {
+	
+	height: 400px;
+	width:1200px;
+	display: flex;
+	margin-top:40px;
+    justify-content: center;
+    align-items: center;
+}
+
+.details-container1 .card-content {
+	text-align: center;
+	justify-content: center;
+    align-items: center;
+}

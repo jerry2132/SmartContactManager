@@ -120,6 +120,9 @@ public class AdminController {
 			Principal principal
 			,RedirectAttributes redirectAttributes) {
 		
+		String formattedDateTime = DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss").format(LocalDateTime.now());
+        String uniqueFilename = formattedDateTime + "_" + file.getOriginalFilename();
+		
 		try {
 			UserDetails userDetails  = customUserDetailsServiceImpl.loadUserByUsername(principal.getName());
 	
@@ -132,8 +135,7 @@ public class AdminController {
 				
 			}else {
 				
-				String formattedDateTime = DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss").format(LocalDateTime.now());
-	            String uniqueFilename = formattedDateTime + "_" + file.getOriginalFilename();
+				
 				
 			contact.setImage(uniqueFilename);
 				
