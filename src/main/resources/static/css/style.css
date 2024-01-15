@@ -179,6 +179,11 @@ nav a:hover {
 	 cursor: pointer;
 }
 
+.container .imageContact {
+	height: 200px;
+	width: 100%;
+}
+
 @media only screen and (max-width: 600px) {
     .sidebar {
         padding-top: 15px;

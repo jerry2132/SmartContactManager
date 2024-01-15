@@ -73,6 +73,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
             <label for="description">DESCRIPTION</label>
             <textarea th:text="${contact.description}" id="description" name="description" rows="8" cols="50" placeholder="enter your description" required></textarea><br>
 
+			<img th:if="${!addContact}"src="" th:src="@{'/img/' + ${contact.image}}" class="imageContact" alt="">
+			
              <label for="image">IMAGE</label>
             <input type="file" id="image" name="imageFile"><br>
 

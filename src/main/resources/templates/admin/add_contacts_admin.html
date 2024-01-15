@@ -70,7 +70,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     	</div>   
 		
 		
-        <form th:action="${addContact ? '/admin/process-contact' : '/admin/process-update/' + contact.cid}" method="get" th:object="${contact}" enctype="multipart/form-data">
+        <form th:action="${addContact ? '/admin/process-contact' : '/admin/process-update/' + contact.cid}" method="post" th:object="${contact}" enctype="multipart/form-data">
 
             <label for="name">NAME</label>
             <input th:value="${contact.name}" type="text" id="name" name="name" placeholder="enter your name" required><br>
@@ -91,8 +91,12 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
             <label for="description">DESCRIPTION</label>
             <textarea th:text="${contact.description}" id="description" name="description" rows="15" cols="50" placeholder="enter your description" required></textarea><br>
 				
+			<img th:if="${!addContact}"src="" th:src="@{'/img/' + ${contact.image}}" class="imageContact" alt="">
+				
              <label for="image">IMAGE</label>
             <input type="file" id="image" name="imageFile"><br>
+            
+           
 
             <input type="submit" th:value="${addContact ? 'ADD CONTACT' : 'UPDATE CONTACT'}">
     

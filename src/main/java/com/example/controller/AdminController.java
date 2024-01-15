@@ -61,6 +61,11 @@ public class AdminController {
 	@Autowired
 	private ContactRepository contactRepository;
 	
+	@Autowired
+	private UserRepository userRepository;
+	
+	
+	
 //	private static String uploadDirectory = System.getProperty("user.dir") + "/src/target/uploads";
 	
 //	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd-HHmmss");
@@ -258,5 +263,45 @@ public class AdminController {
 		model.addAttribute("contact", contact);
 		
 		return "admin/add_contacts_admin";
+	}
+	
+	
+	
+	@PostMapping("/process-update/{cid}")
+	public String processContactUpdate(@PathVariable("cid")Integer contactId,@ModelAttribute Contact contact,
+			@RequestParam("imageFile") MultipartFile file,Model model ,Principal principal,
+			RedirectAttributes redirectAttributes) {
+		
+	UserDetails userDetails  = customUserDetailsServiceImpl.loadUserByUsername(principal.getName());
+	User user = userService.findByEmail(userDetails.getUsername());
+	
+		Optional<Contact> existingContactOptional = contactRepository.findById(contactId);
+		Contact existingContact = existingContactOptional.get();
+		
+		
+	try {
+		
+		if(!file.isEmpty()) {
+			
+			String newName = contactService.updateImage(existingContact, file);
+			contact.setImage(newName);
+		}
+			
+			
+		else
+			contact.setImage(existingContact.getImage());
+		
+		contact.setUser(user);
+		contactRepository.save(contact);
+		redirectAttributes.addFlashAttribute("successMessage", "Contact updated succcessfully");
+	}catch(Exception e ) {
+		
+		redirectAttributes.addFlashAttribute("errorMessage", "Error saving contact: "+e.getMessage());
+	}
+	
+//	System.out.println("Id =  	"+contact.getCid());
+		
+		
+	return "redirect:/admin/contact-status";
 	}
 }

@@ -276,11 +276,16 @@ public class UserController {
 
 		
 		@GetMapping("/update-contact/{cid}")
-		public String updateContact(@PathVariable("cid")Integer contactId,Model model) {
+		public String updateContact(@PathVariable("cid")Integer contactId,Model model,Principal principal) {
+			
+			UserDetails userDetails = customUserDetailsServiceImpl.loadUserByUsername(principal.getName());
+			User user = userService.findByEmail(userDetails.getUsername());
 			
 			Contact contact = contactRepository.findById(contactId).get();
 			model.addAttribute("addContact", false);
-			model.addAttribute("contact", contact);
+			
+			if(user.getId() == contact.getUser().getId())
+				model.addAttribute("contact", contact);
 			
 			return "user/add_contacts_user";
 		}
