@@ -3,49 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Dashboard</title>
+    <title>Admin Dashboard</title>
     <link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet">
     <link rel="stylesheet" 
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="../static/css/style2.css" th:href="@{/css/style2.css}" rel="stylesheet">
 </head>
 <body>
 
 <nav>
 	<span>SMART CONTACT MANAGER</span>
-    <!--  <a th:href="@{/login}">LOGIN</a>
+  <!--    <a th:href="@{login}">LOGIN</a>
     <a th:href="@{/signup}">SIGNUP</a>
     <a href="#home">HOME</a>
     <a href="#about">ABOUT</a>-->
     <a href="/logout" >LOGOUT</a>
-    <span th:text="${userdetails.name}" class="user-name">John Doe</span>
-    </nav>
+    <span th:text="${userdetails.name}" class="user-name">hey</span>
     
-    <div class="sidebar">
+</nav>
+
+<div class="sidebar">
     <span class="close-btn" onclick="toggleSidebar()">×</span>
     <a href="#" class="item"><i class="fa-solid fa-house"></i> HOME </a>
-    <a href="#" th:href="@{/user/view-contacts/0}" class="item"> <i class="fa-solid fa-address-book"></i> VIEW CONTACTS </a>
+    <a href="#" th:href="@{/user/view-contacts/0}" class="item"> <i class="fa-solid fa-address-book"></i>VIEW CONTACTS </a>
     <a href="#" th:href="@{/user/add-contacts}" class="item"><i class="fa-solid fa-user-plus"></i> ADD CONTACTS </a>
     <a href="#" th:href="@{/user/profile}" class="item"><i class="fa-solid fa-user"></i> YOUR PROFILE </a>
     <a href="#" class="item"><i class="fa-solid fa-gear"></i> SETTINGS </a>
     </div>
-    
-	
-	 <div class="content">
+
+    <div class="content">
 	 
 	 <i onclick="toggleSidebar()" class="fa-solid fa-bars pointer-cursor"></i>
-	 <h2>Welcome to the User Dashboard!</h2>
+	 
 	  <!--  <button onclick="toggleSidebar()">Toggle Sidebar</button> -->
  
+ 		<div class="card1">
+ 		<div class="card-content">
+ 		
+ 		<img th:src="@{'/registeredImage/' + ${user.imgUrl}}" alt="profile photo"/><br>
+ 			
+ 			<div class="contact-info">
+ 			<i th:text="${user.name}"></i><br>
+ 			<label>EMAIL : </label><i th:text="${user.email}"></i>	<br>
+ 			<label>USER_ID : </label><i th:text="${'USERID' + user.id}"></i><br>
+ 			<label>ACCOUNT ACTIVE : </label><i th:text="${user.enabled}"></i><br>
+ 			<label>ABOUT : </label><i th:text="${user.about}"></i>	<br>
+ 			<label>ROLE : </label><i th:text="${user.role}"></i>	<br>
+ 			<button>DELETE</button>
+ 				
+ 		</div>
+ 
 	</div>
-
-    
-    <!--<p>Here, you can see admin-specific content.</p>
-
-     Logout Form 
-    <form th:action="@{/logout}" method="post">
-        <input type="submit" value="Logout">S
-    </form>-->
-    
+	</div>
+	</div>
+  
     <script src="/user/js/script.js"></script>
 </body>
 </html>

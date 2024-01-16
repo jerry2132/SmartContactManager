@@ -7,6 +7,7 @@
     <link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet">
     <link rel="stylesheet" 
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="../static/css/style2.css" th:href="@{/css/style2.css}" rel="stylesheet">
 </head>
 <body>
 
@@ -33,15 +34,29 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     <div class="content">
 	 
 	 <i onclick="toggleSidebar()" class="fa-solid fa-bars pointer-cursor"></i>
-	 <h2>Welcome to the Admin Dashboard!</h2>
+	 
 	  <!--  <button onclick="toggleSidebar()">Toggle Sidebar</button> -->
  
+ 		<div class="card1">
+ 		<div class="card-content">
+ 		
+ 		<img th:src="@{'/registeredImage/' + ${user.imgUrl}}" alt="profile photo"/><br>
+ 			
+ 			<div class="contact-info">
+ 			<i th:text="${user.name}"></i><br>
+ 			<label>EMAIL : </label><i th:text="${user.email}"></i>	<br>
+ 			<label>USER_ID : </label><i th:text="${'USERID' + user.id}"></i><br>
+ 			<label>ACCOUNT ACTIVE : </label><i th:text="${user.enabled}"></i><br>
+ 			<label>ABOUT : </label><i th:text="${user.about}"></i>	<br>
+ 			<label>ROLE : </label><i th:text="${user.role}"></i>	<br>
+ 			<button>DELETE</button>
+ 				
+ 		</div>
+ 
 	</div>
-
-    <!--   Logout Form 
-    <form th:action="@{/logout}" method="post">
-        <input type="submit" value="Logout">
-    </form>-->
+	</div>
+	</div>
+  
     <script src="/admin/js/script.js"></script>
 </body>
 </html>

@@ -328,4 +328,15 @@ public class UserController {
 			
 		return "redirect:/user/contact-status";
 		}
+		
+		@GetMapping("/profile")
+		public String profile(Model model,Principal principal) {
+			
+			UserDetails userDetails  = customUserDetailsServiceImpl.loadUserByUsername(principal.getName());
+			User user = userService.findByEmail(userDetails.getUsername());
+			
+			model.addAttribute("user",user);
+			
+			return "user/profile";
+		}
 }

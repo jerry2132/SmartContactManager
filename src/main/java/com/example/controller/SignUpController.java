@@ -70,6 +70,7 @@ public class SignUpController {
 	 		if(file.isEmpty()) {
 	 			
 	 			System.out.println("File is empty");
+	 			user.setImgUrl("contact.png");
 	 		}else {
 	 			
 	 			String formattedDateTime = DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss").format(LocalDateTime.now());
