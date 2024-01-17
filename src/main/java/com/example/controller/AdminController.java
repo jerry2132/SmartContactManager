@@ -317,4 +317,20 @@ public class AdminController {
 		
 		return "admin/profile";
 	}
+	
+	@GetMapping("/deleteUser/{id}")
+	public String deleteUser(@PathVariable("id")Integer userId,Model model,RedirectAttributes redirectAttributes) {
+		
+		try {
+			
+			userService.deleteUser(userId);
+			redirectAttributes.addFlashAttribute("message", "contact saved successfully");
+		}catch(Exception e) {
+			
+			redirectAttributes.addFlashAttribute("message", "contact not found");
+		}
+		
+		return "redirect:/signup";
+		
+	}
 }

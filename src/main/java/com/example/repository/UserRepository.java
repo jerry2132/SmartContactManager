@@ -11,4 +11,5 @@ import com.example.entity.User;
 public interface UserRepository extends JpaRepository<User ,Integer>{
 	
 	User findUserByEmail(String email);
+	//public void deleteUser(Integer userId);
 }

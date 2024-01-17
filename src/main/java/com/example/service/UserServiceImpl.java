@@ -1,5 +1,7 @@
 package com.example.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,8 @@ public class UserServiceImpl implements UserService{
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
+	private User user;
 	
 	@Autowired
     public void UserServiceImplementation(UserRepository userRepository,  PasswordEncoder passwordEncoder) {
@@ -36,6 +40,21 @@ public class UserServiceImpl implements UserService{
 	public User findByEmail(String email) {
 		// TODO Auto-generated method stub
 		return userRepository.findUserByEmail(email);
+	}
+
+	@Override
+	public void deleteUser(Integer userId) {
+		// TODO Auto-generated method stub
+		
+		Optional <User> userOptional = userRepository.findById(userId);
+		
+		if(userOptional.isPresent()) {
+			User user = userOptional.get();
+		}
+		
+		
+		userRepository.deleteById(userId);
+		
 	}
 
 }
