@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet">
     <link rel="stylesheet" 
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -49,7 +50,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
  			<label>ACCOUNT ACTIVE : </label><i th:text="${user.enabled}"></i><br>
  			<label>ABOUT : </label><i th:text="${user.about}"></i>	<br>
  			<label>ROLE : </label><i th:text="${user.role}"></i>	<br>
- 			<button>DELETE</button>
+ 			<a th:onclick="'deleteUser(' + ${user.id} + ');'"><button>DELETE</button></a>
  				
  		</div>
  

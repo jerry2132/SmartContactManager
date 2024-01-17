@@ -339,4 +339,21 @@ public class UserController {
 			
 			return "user/profile";
 		}
+		
+		@GetMapping("/deleteUser/{id}")
+		public String deleteUser(@PathVariable("id")Integer userId,Model model,RedirectAttributes redirectAttributes) {
+			
+			try {
+				
+				userService.deleteUser(userId);
+				redirectAttributes.addFlashAttribute("successMessage", "User deleted successfully");
+			}catch(Exception e) {
+				
+				redirectAttributes.addFlashAttribute("errorMessage", "contact not found");
+			}
+			
+			return "redirect:/signup";
+			
+		}
+		
 }
