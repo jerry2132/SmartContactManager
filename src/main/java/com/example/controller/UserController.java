@@ -9,6 +9,7 @@ import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +20,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 //import org.springframework.security.core.Authentication;
 //import org.springframework.security.core.authority.AuthorityUtils;
@@ -38,6 +41,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.entity.Contact;
 import com.example.entity.User;
 import com.example.repository.ContactRepository;
+import com.example.repository.UserRepository;
 import com.example.service.ContactService;
 import com.example.service.UserService;
 import com.example.userdetails.CustomUserDetailsServiceImpl;
@@ -61,10 +65,15 @@ public class UserController {
 	@Autowired
 	private ContactService contactService;
 	
+	@Autowired
+	private UserRepository userRepository;
+	
 	@ModelAttribute
 	public void commonDashboard(Model model,Principal principal) {
 		
 		UserDetails userDetails = customUserDetailsServiceImpl.loadUserByUsername(principal.getName());
+		
+		
 		model.addAttribute("userdetails", userDetails);
 	}
 	
@@ -323,7 +332,7 @@ public class UserController {
 			redirectAttributes.addFlashAttribute("errorMessage", "Error saving contact: "+e.getMessage());
 		}
 		
-		System.out.println("Id =  	"+contact.getCid());
+//		System.out.println("Id =  	"+contact.getCid());
 			
 			
 		return "redirect:/user/contact-status";
@@ -353,6 +362,27 @@ public class UserController {
 			}
 			
 			return "redirect:/signup";
+			
+		}
+		
+		@GetMapping("/update-user/{id}")
+		public String updateUser(@PathVariable("id")Integer userId,Model model,Principal principal) {
+			
+			model.addAttribute("updateUser", false);
+
+			Collection<? extends GrantedAuthority> authorities = ((Authentication) principal).getAuthorities();
+			
+			 boolean isAdmin = authorities.stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_ADMIN"));
+			 	//authorities.stream().anyMatch(authority -> authority.getAuthority().eq)
+		        // Add the isAdmin variable to the Thymeleaf context
+			 User user = userRepository.findById(userId).get();
+			 System.out.println(isAdmin);
+			 System.out.println(authorities);
+			 model.addAttribute("isAdmin", isAdmin);
+			 model.addAttribute("updateUser", false);
+			 model.addAttribute("user", user);
+			
+			return "signup";
 			
 		}
 		

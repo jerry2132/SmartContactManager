@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +29,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -76,6 +79,8 @@ public class AdminController {
 	@ModelAttribute
 	public void commonDashboard(Model model, Principal principal) {
 		UserDetails userDetails  = customUserDetailsServiceImpl.loadUserByUsername(principal.getName());
+		
+		
 		
 		model.addAttribute("userdetails", userDetails);
 		
@@ -333,4 +338,36 @@ public class AdminController {
 		return "redirect:/signup";
 		
 	}
+	
+	@GetMapping("/update-user/{id}")
+	public String updateUserForm(@PathVariable("id")Integer userId,Model model,Principal principal) {
+		
+		Collection<? extends GrantedAuthority> authorities = ((Authentication) principal).getAuthorities();
+		
+		 boolean isAdmin = authorities.stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_ADMIN"));
+		 	//authorities.stream().anyMatch(authority -> authority.getAuthority().eq)
+	        // Add the isAdmin variable to the Thymeleaf context
+//		 User user  = userService.findById(userId).get();
+		 
+//		 Optional<User> userOptional  = 
+//		 UserDetails userDetails  = customUserDetailsServiceImpl.loadUserByUsername(principal.getName());
+//		 User user = userService.findByEmail(userDetails.getUsername());
+				 User user = userRepository.findById(userId).get();
+		 System.out.println(user);
+		 System.out.println(isAdmin);
+		 System.out.println(authorities);
+		 model.addAttribute("isAdmin", isAdmin);
+		 
+		 model.addAttribute("updateUser", false);
+		 model.addAttribute("user", user);
+		 //System.out.println(updateUser);
+		return "signup";
+		
+	}
+	
+	@PostMapping("/process-update-user/{id}")
+    public String processUpdateUser(@PathVariable("id") Integer userId, @ModelAttribute User user) {
+        // Your logic for updating the user in the admin context
+        return "redirect:/admin/some-page";
+    }
 }

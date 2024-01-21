@@ -51,6 +51,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
  			<label>ABOUT : </label><i th:text="${user.about}"></i>	<br>
  			<label>ROLE : </label><i th:text="${user.role}"></i>	<br>
  			<a th:onclick="'deleteUser(' + ${user.id} + ');'"><button>DELETE</button></a>
+ 			<a th:href="@{'/admin/update-user/' + ${user.id}}"><button>UPDATE</button></a>
  				
  		</div>
  

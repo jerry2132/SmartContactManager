@@ -41,13 +41,14 @@ public class SignUpController {
 	 	public String signUp(Model model) {
 	 		
 	 		model.addAttribute("user", new User());
+	 		model.addAttribute("updateUser", true);
 	 		return "signup";
 	 	}
 	 	
 	 	@PostMapping("/signup")
 	 	public String registerUser(@Valid @ModelAttribute("user") User user,@RequestParam("imageUrl")MultipartFile file,
 	 			BindingResult bindingresult
-	 			,RedirectAttributes redirectAttributes) {
+	 			,RedirectAttributes redirectAttributes,Model model) {
 	 		
 	 	try {
 
@@ -125,7 +126,7 @@ public class SignUpController {
 	 		redirectAttributes.addFlashAttribute("errorMessage", "Error saving User "+e.getMessage());
 	 	}
 	 		
-	 		
+	 	model.addAttribute("updateUser", true);
 	 		return "redirect:/signup";
 	 	}
 //	 	@RequestMapping("/signup")

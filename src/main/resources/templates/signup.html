@@ -26,33 +26,34 @@
  			<span th:text = "${errorMessage}"></span>
     	</div>
 
-		<form th:action="@{/signup}" method="post" th:object="${user}"  enctype="multipart/form-data">
+		<form th:action="${updateUser ? '/signup' : (isAdmin ? '/admin/process-update-user/' + user.id : '/user/process-update-user/' + user.id)}" 
+      method="post" th:object="${user}" enctype="multipart/form-data">
 			<label for="name">NAME </label> 
-			<input th:field="${user.name}"  type="text" id="name"
+			<input th:value="${user.name}"type="text" id="name"
 				name="name" placeholder="enter your name" /><span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
 				
 				<label for="email">EMAIL </label> 
-				<input th:field="${user.email}" type="email" id="email" name="email" placeholder="enter your email" required />
+				<input th:field="*{email}" type="email" id="email" name="email" placeholder="enter your email" required />
 				<span  th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
 				 
 				<label for="password">PASSWORD </label>
-				<input th:field="${user.password}" type="password" id="password" name="password" placeholder="enter your password"
+				<input th:field="*{password}" type="password" id="password" name="password" placeholder="enter your password"
 				required />
 				<span  th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span> 
 				
 				<label for="about">ABOUT </label>
-				<textarea th:field="${user.about}" id="about" name="about" placeholder="enter about yourself"
+				<textarea th:field="*{about}" id="about" name="about" placeholder="enter about yourself"
 				rows="4"></textarea>
 				<span  th:if="${#fields.hasErrors('about')}" th:errors="*{about}"></span> 
 
 			
 					
 				 <label for="image">IMAGE</label>
-            	<input type="file" id="image" name="imageUrl" required><br>
+            	<input type="file" id="image" name="imageUrl" ><br>
 					
 					
 				<div class="input-container">
-            <input th:field="${user.enabled}" type="checkbox" id="acceptTerms" name="enabled" required>
+            <input th:field="*{enabled}" type="checkbox" id="acceptTerms" name="enabled" required>
              <label for="acceptTerms">I accept the terms and conditions</label>
              <span  th:if="${#fields.hasErrors('enabled')}" th:errors="*{enabled}"></span>
         	</div>
