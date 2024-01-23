@@ -253,7 +253,7 @@ public class AdminController {
 		try {
 			
 			contactService.deleteContact(contactId);
-			redirectAttributes.addFlashAttribute("message", "contact saved successfully");
+			redirectAttributes.addFlashAttribute("message", "contact deleted successfully");
 		}catch(Exception e) {
 			
 			redirectAttributes.addFlashAttribute("message", "contact not found");
@@ -329,10 +329,10 @@ public class AdminController {
 		try {
 			
 			userService.deleteUser(userId);
-			redirectAttributes.addFlashAttribute("message", "contact saved successfully");
+			redirectAttributes.addFlashAttribute("successMessage", "user deleted successfully");
 		}catch(Exception e) {
 			
-			redirectAttributes.addFlashAttribute("message", "contact not found");
+			redirectAttributes.addFlashAttribute("errorMessage", "user not found");
 		}
 		
 		return "redirect:/signup";
@@ -366,8 +366,59 @@ public class AdminController {
 	}
 	
 	@PostMapping("/process-update-user/{id}")
-    public String processUpdateUser(@PathVariable("id") Integer userId, @ModelAttribute User user) {
+    public String processUpdateUser(@PathVariable("id") Integer userId,@ModelAttribute User updatedUser,
+    		@RequestParam("imageUrl")MultipartFile file,Principal principal,RedirectAttributes redirectAttributes) {
         // Your logic for updating the user in the admin context
-        return "redirect:/admin/some-page";
+		
+		
+//		UserDetails userDetails  = customUserDetailsServiceImpl.loadUserByUsername(principal.getName());
+//		User user1 = userService.findByEmail(userDetails.getUsername());
+//			
+		Optional<User> existingUserOptional = userRepository.findById(userId);
+		
+		
+		if(existingUserOptional.isPresent()) {
+			
+				User existingUser = existingUserOptional.get();
+					System.out.println(updatedUser.getName()+existingUser.getName());
+				if(updatedUser.getName() != null)
+					existingUser.setName(updatedUser.getName());
+				if(updatedUser.getEmail() != null)
+					existingUser.setName(updatedUser.getName());
+				if(updatedUser.getAbout() != null)
+					existingUser.setAbout(updatedUser.getAbout());
+			
+				try {
+					
+					String currentImageUrl = existingUser.getImgUrl();
+					System.out.println(currentImageUrl);
+					
+					if(!file.isEmpty()) {
+						
+						String newImage = userService.updateImage(existingUser, file);
+						System.out.println(newImage);
+						existingUser.setImgUrl(newImage);
+						System.out.println(existingUser.getImgUrl());
+					}else {
+						existingUser.setImgUrl(currentImageUrl);
+					}
+					userRepository.save(existingUser);
+					redirectAttributes.addFlashAttribute("successMessage", "Contact updated succcessfully");
+				}catch(Exception e) {
+					
+					redirectAttributes.addFlashAttribute("errorMessage", "Error saving contact: "+e.getMessage());
+				}
+				
+				
+			
+				
+			
+			
+		}
+			
+		
+	//	System.out.println(existingUser);
+		
+        return "redirect:/admin/profile";
     }
 }

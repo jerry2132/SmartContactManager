@@ -120,7 +120,7 @@ public class ContactServiceImpl implements ContactService {
 //		
 //	}
 //	public void updateContact()
-
+			
 		if (existingContact.getImage() == null || existingContact.getImage().isEmpty()) {
 
 			return saveNewImage(existingContact, file);

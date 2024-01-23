@@ -9,6 +9,7 @@
 		<span>SMART CONTACT MANAGER</span> <a th:href="@{login}">LOGIN</a> <a
 			th:href="@{/signup}">SIGNUP</a> <a th:href="@{/base}">HOME</a> <a
 			href="#about">ABOUT</a>
+			<a href="/logout" th:if="${!updateUser}">LOGOUT</a>
 	</nav>
 
 
@@ -36,9 +37,9 @@
 				<input th:field="*{email}" type="email" id="email" name="email" placeholder="enter your email" required />
 				<span  th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
 				 
-				<label for="password">PASSWORD </label>
-				<input th:field="*{password}" type="password" id="password" name="password" placeholder="enter your password"
-				required />
+				<label th:if="${updateUser}" for="password">PASSWORD </label>
+				<input th:if="${updateUser}" th:field="*{password}" type="password" id="password" name="password" placeholder="enter your password"
+				th:required="${updateUser}" />
 				<span  th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span> 
 				
 				<label for="about">ABOUT </label>
@@ -46,7 +47,7 @@
 				rows="4"></textarea>
 				<span  th:if="${#fields.hasErrors('about')}" th:errors="*{about}"></span> 
 
-			
+				<img th:if="${!updateUser}"src="" th:src="@{'/registeredImage/' + ${user.imgUrl}}" class="imageContact" alt="">			
 					
 				 <label for="image">IMAGE</label>
             	<input type="file" id="image" name="imageUrl" ><br>
@@ -58,7 +59,7 @@
              <span  th:if="${#fields.hasErrors('enabled')}" th:errors="*{enabled}"></span>
         	</div>
         		
-				<input type="submit" value="Register"> 
+				<input type="submit" th:value="${updateUser ? 'REGISTER' : 'UPDATE USER'}"> 
 				<input type="reset" value="Reset">
 		</form>
 	</div>
