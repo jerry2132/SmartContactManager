@@ -6,9 +6,9 @@
 </head>
 <body>
 	<nav>
-		<span>SMART CONTACT MANAGER</span> <a th:href="@{login}">LOGIN</a> <a
-			th:href="@{/signup}">SIGNUP</a> <a th:href="@{/base}">HOME</a> <a
-			href="#about">ABOUT</a>
+		<span>SMART CONTACT MANAGER</span> <a th:href="@{login}" th:if="${updateUser}">LOGIN</a> <a
+			th:href="@{/signup}" th:if="${updateUser}">SIGNUP</a> <a th:href="@{/base}" th:if="${updateUser}">HOME</a> <a
+			href="#about" th:if="${updateUser}">ABOUT</a>
 			<a href="/logout" th:if="${!updateUser}">LOGOUT</a>
 	</nav>
 
@@ -47,7 +47,7 @@
 				rows="4"></textarea>
 				<span  th:if="${#fields.hasErrors('about')}" th:errors="*{about}"></span> 
 
-				<img th:if="${!updateUser}"src="" th:src="@{'/registeredImage/' + ${user.imgUrl}}" class="imageContact" alt="">			
+				<img th:if="${!updateUser}"src="" th:src="@{'/registeredImage/' + ${user.imgUrl}}" class="imageUser" alt="">			
 					
 				 <label for="image">IMAGE</label>
             	<input type="file" id="image" name="imageUrl" ><br>

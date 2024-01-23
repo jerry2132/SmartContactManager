@@ -165,3 +165,21 @@
 	height:250px;
 	width:600px;
 }
+
+.profileButton {
+    display: inline-block;
+    padding: 5px 15px;
+    font-weight: bold;
+    text-decoration: none;
+    /*border: 3px solid  #FFCC99;
+    color: #000000;
+    background-color:  #FFCC99;*/
+    transition: background-color 0.3s, color 0.3s;
+    cursor: pointer;
+}
+
+.profileButton:hover {
+	/*cursor: pointer;*/
+    background-color:  #EF2632; /* Change to the desired hover background color */
+    color: #000000; /* Change to the desired hover text color */
+}

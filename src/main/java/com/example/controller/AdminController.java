@@ -342,9 +342,41 @@ public class AdminController {
 	@GetMapping("/update-user/{id}")
 	public String updateUserForm(@PathVariable("id")Integer userId,Model model,Principal principal) {
 		
-		Collection<? extends GrantedAuthority> authorities = ((Authentication) principal).getAuthorities();
 		
-		 boolean isAdmin = authorities.stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_ADMIN"));
+		//String authenticatedUsername = principal.getName();
+		User authenticatedUser = userRepository.findUserByEmail(principal.getName());
+	
+		if(authenticatedUser != null) {
+			
+			if(authenticatedUser.getId() == userId) {
+				
+					Collection<? extends GrantedAuthority> authorities = ((Authentication) principal).getAuthorities();
+					
+					 boolean isAdmin = authorities.stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_ADMIN"));
+					 	 Optional<User> userOptional = userRepository.findById(userId);
+					 	 
+					 	 if(userOptional.isPresent()) {
+					 		 
+					 		User user = userOptional.get();
+						 	model.addAttribute("isAdmin", isAdmin);
+							 
+							 model.addAttribute("updateUser", false);
+							
+								 model.addAttribute("user", user);
+								 return "signup";
+					 	 }else
+					 		 return "redirect:/error";
+					 		
+					 
+				
+				
+			}else
+				return "redirect:/error";
+		}else
+			return "redirect:/error";
+		
+//		
+		 
 		 	//authorities.stream().anyMatch(authority -> authority.getAuthority().eq)
 	        // Add the isAdmin variable to the Thymeleaf context
 //		 User user  = userService.findById(userId).get();
@@ -352,16 +384,16 @@ public class AdminController {
 //		 Optional<User> userOptional  = 
 //		 UserDetails userDetails  = customUserDetailsServiceImpl.loadUserByUsername(principal.getName());
 //		 User user = userService.findByEmail(userDetails.getUsername());
-				 User user = userRepository.findById(userId).get();
-		 System.out.println(user);
-		 System.out.println(isAdmin);
-		 System.out.println(authorities);
-		 model.addAttribute("isAdmin", isAdmin);
 		 
-		 model.addAttribute("updateUser", false);
-		 model.addAttribute("user", user);
+		 
+			 	
+//		 System.out.println(user);
+//		 System.out.println(isAdmin);
+//		 System.out.println(authorities);
+		
+		 
 		 //System.out.println(updateUser);
-		return "signup";
+		
 		
 	}
 	

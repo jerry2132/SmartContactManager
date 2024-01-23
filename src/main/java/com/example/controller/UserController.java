@@ -368,22 +368,90 @@ public class UserController {
 		@GetMapping("/update-user/{id}")
 		public String updateUser(@PathVariable("id")Integer userId,Model model,Principal principal) {
 			
-			model.addAttribute("updateUser", false);
+			//model.addAttribute("updateUser", false);
 
-			Collection<? extends GrantedAuthority> authorities = ((Authentication) principal).getAuthorities();
+			User authenticatedUser = userRepository.findUserByEmail(principal.getName());
 			
-			 boolean isAdmin = authorities.stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_ADMIN"));
-			 	//authorities.stream().anyMatch(authority -> authority.getAuthority().eq)
-		        // Add the isAdmin variable to the Thymeleaf context
-			 User user = userRepository.findById(userId).get();
-			 System.out.println(isAdmin);
-			 System.out.println(authorities);
-			 model.addAttribute("isAdmin", isAdmin);
-			 model.addAttribute("updateUser", false);
-			 model.addAttribute("user", user);
-			
-			return "signup";
-			
+			if(authenticatedUser != null) {
+				
+				if(authenticatedUser.getId() == userId) {
+					
+						Collection<? extends GrantedAuthority> authorities = ((Authentication) principal).getAuthorities();
+						
+						 boolean isAdmin = authorities.stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_ADMIN"));
+						 	 Optional<User> userOptional = userRepository.findById(userId);
+						 	 
+						 	 if(userOptional.isPresent()) {
+						 		 
+						 		User user = userOptional.get();
+							 	model.addAttribute("isAdmin", isAdmin);
+								 
+								 model.addAttribute("updateUser", false);
+								
+									 model.addAttribute("user", user);
+									 return "signup";
+						 	 }else
+						 		 return "redirect:/error";
+						 		
+						 
+					
+					
+				}else
+					return "redirect:/error";
+			}else
+				return "redirect:/error";
 		}
+		
+		@PostMapping("/process-update-user/{id}")
+	    public String processUpdateUser(@PathVariable("id") Integer userId,@ModelAttribute User updatedUser,
+	    		@RequestParam("imageUrl")MultipartFile file,Principal principal,RedirectAttributes redirectAttributes) {
+	        // Your logic for updating the user in the admin context
+			
+			
+//			UserDetails userDetails  = customUserDetailsServiceImpl.loadUserByUsername(principal.getName());
+//			User user1 = userService.findByEmail(userDetails.getUsername());
+//				
+			Optional<User> existingUserOptional = userRepository.findById(userId);
+			
+			
+			if(existingUserOptional.isPresent()) {
+				
+					User existingUser = existingUserOptional.get();
+						System.out.println(updatedUser.getName()+existingUser.getName());
+					if(updatedUser.getName() != null)
+						existingUser.setName(updatedUser.getName());
+					if(updatedUser.getEmail() != null)
+						existingUser.setName(updatedUser.getName());
+					if(updatedUser.getAbout() != null)
+						existingUser.setAbout(updatedUser.getAbout());
+				
+					try {
+						
+						String currentImageUrl = existingUser.getImgUrl();
+						System.out.println(currentImageUrl);
+						
+						if(!file.isEmpty()) {
+							
+							String newImage = userService.updateImage(existingUser, file);
+							System.out.println(newImage);
+							existingUser.setImgUrl(newImage);
+							System.out.println(existingUser.getImgUrl());
+						}else {
+							existingUser.setImgUrl(currentImageUrl);
+						}
+						userRepository.save(existingUser);
+						redirectAttributes.addFlashAttribute("successMessage", "Contact updated succcessfully");
+					}catch(Exception e) {
+						
+						redirectAttributes.addFlashAttribute("errorMessage", "Error saving contact: "+e.getMessage());
+					}
+
+			}
+				
+			
+		//	System.out.println(existingUser);
+			
+	        return "redirect:/user/profile";
+	    }
 		
 }

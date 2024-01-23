@@ -25,6 +25,10 @@ form {
 	padding: 20px;
 	border-radius: 8px;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	top:10px;
+	transition: transform 0.3s ease-in-out;
+	z-index: 1;
+	position: relative;
 }
 
 label {
@@ -83,10 +87,14 @@ input[type="submit"]:hover {
     margin-left: 80px; /* Adjust the margin as needed */
 }
 nav {
+	position:fixed;
 	background-color: #EC8565;
+	width:100%;
+	top:0;
 	overflow: hidden;
 	height: 42px;
 	font-weight: bold;
+	z-index: 2;
 }
 
 nav span {
@@ -98,6 +106,10 @@ nav span {
 
 h2 {
 	text-align: center;
+	margin-top:60px;
+	transition: transform 0.3s ease-in-out;
+	z-index: 1;
+	position: relative;
 }
 
 nav a {
@@ -114,4 +126,10 @@ nav a:hover {
 	color: black;
 	padding: 8px 10px;
 	border-radius: 15px;
+}
+
+.imageUser {
+	height:200px;
+	width:400px;
+	
 }

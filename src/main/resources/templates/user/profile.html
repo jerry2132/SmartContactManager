@@ -25,7 +25,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
 <div class="sidebar">
     <span class="close-btn" onclick="toggleSidebar()">×</span>
-    <a href="#" class="item"><i class="fa-solid fa-house"></i> HOME </a>
+    <a href="#" th:href="@{/admin/dashboard}" class="item"><i class="fa-solid fa-house"></i> HOME </a>
     <a href="#" th:href="@{/user/view-contacts/0}" class="item"> <i class="fa-solid fa-address-book"></i>VIEW CONTACTS </a>
     <a href="#" th:href="@{/user/add-contacts}" class="item"><i class="fa-solid fa-user-plus"></i> ADD CONTACTS </a>
     <a href="#" th:href="@{/user/profile}" class="item"><i class="fa-solid fa-user"></i> YOUR PROFILE </a>
@@ -50,8 +50,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
  			<label>ACCOUNT ACTIVE : </label><i th:text="${user.enabled}"></i><br>
  			<label>ABOUT : </label><i th:text="${user.about}"></i>	<br>
  			<label>ROLE : </label><i th:text="${user.role}"></i>	<br>
- 			<a th:onclick="'deleteUser(' + ${user.id} + ');'"><button>DELETE</button></a>
- 			<a th:href="@{'/user/update-user/' + ${user.id}}"><button>UPDATE</button></a>
+ 			<a th:onclick="'deleteUser(' + ${user.id} + ');'" ><button class="profileButton">DELETE</button></a>
+ 			<a th:href="@{'/user/update-user/' + ${user.id}}"><button class="profileButton">UPDATE</button></a>
  				
  		</div>
  

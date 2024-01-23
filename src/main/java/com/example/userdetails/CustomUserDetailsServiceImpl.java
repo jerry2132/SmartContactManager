@@ -27,7 +27,7 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService{
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException{
 		// TODO Auto-generated method stub
-		
+		 
 		User user = userRepository.findUserByEmail(email);
 		
 		if(user == null) {
