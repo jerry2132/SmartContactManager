@@ -9,6 +9,8 @@
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet">
 <link href="../static/css/style2.css" th:href="@{/css/style2.css}" rel="stylesheet">
+
+ <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <!--  <style>
 .pagination {
   display: flex;
@@ -78,16 +80,16 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 	</div>
 
 
-			<div class="searchBar">
-			<form action="#" method="get">
-                <input type="text" name="search" placeholder="Search contacts...">
+		<div class="searchBar">
+			
+                <input type="text" th:onkeyup="search()" id="search-input" name="search" placeholder="Search contacts...">
                 <div class="searchResult">
                 
                 <p>njasdnc</p>
                 	
                 </div>
-            </form>
-			</div>
+
+	</div>
 	
 	<div class="container1">
 			

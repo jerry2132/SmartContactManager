@@ -35,7 +35,7 @@ public class SearchController {
 	@GetMapping("/search/{query}")
 	public ResponseEntity<?> search(@PathVariable("query")String query,Principal principal){
 		
-		System.out.println(query);
+		//System.out.println(query);
 		
 		UserDetails userDetails  = customUserDetailsServiceImpl.loadUserByUsername(principal.getName());
 		User user = userService.findByEmail(userDetails.getUsername());

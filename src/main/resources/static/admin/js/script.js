@@ -115,7 +115,7 @@ const search = () => {
 	
 	$(".searchResult").empty();
     $(".searchResult").show();
-    console.log(query);
+   // console.log(query);
 
     let url = `http://localhost:8080/search/${query}`;
 
@@ -123,7 +123,7 @@ const search = () => {
     .then((response) => {
       return response.json();
     }).then((data) => {
-      console.log(data);
+      //console.log(data);
 
      let text = `<div class='searched-items'>`;
 

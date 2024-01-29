@@ -187,7 +187,7 @@ public class AdminController {
 				
 				Path path = Paths.get(uploadDirectory, uniqueFilename);
 				Files.createDirectories(path.getParent());
-				System.out.println(path.toAbsolutePath());
+				//System.out.println(path.toAbsolutePath());
 				Files.copy(file.getInputStream(), path , StandardCopyOption.REPLACE_EXISTING);
 				
 			} catch (IOException e) {
@@ -423,14 +423,14 @@ public class AdminController {
 				try {
 					
 					String currentImageUrl = existingUser.getImgUrl();
-					System.out.println(currentImageUrl);
+					//System.out.println(currentImageUrl);
 					
 					if(!file.isEmpty()) {
 						
 						String newImage = userService.updateImage(existingUser, file);
-						System.out.println(newImage);
+						//System.out.println(newImage);
 						existingUser.setImgUrl(newImage);
-						System.out.println(existingUser.getImgUrl());
+						//System.out.println(existingUser.getImgUrl());
 					}else {
 						existingUser.setImgUrl(currentImageUrl);
 					}

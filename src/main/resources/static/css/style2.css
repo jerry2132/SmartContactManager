@@ -151,13 +151,14 @@ z-index:2;
         right: 20px;
         width: 400px;
         /*padding: 8px;*/
+        
        
 }
 
 .container-wrapper .searchBar input{
 	
 	z-index: 3;
-	 background-color: rgba(255, 255, 255, 0.5);
+	 background-color: rgba(255, 204, 153, 0.5);
 	}
 	
 
@@ -173,7 +174,7 @@ z-index:2;
 	padding:1px;
 	border:1px solid gray;
 	display:none;
-	background-color: rgba(255, 255, 255, 0.5);
+	background-color: rgba(255, 204, 153, 0.5);
 	
 }
 
