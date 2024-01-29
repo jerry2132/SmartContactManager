@@ -9,6 +9,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet">
 <link href="../static/css/style2.css" th:href="@{/css/style2.css}" rel="stylesheet">
 
+ <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
 </head>
 <body>
 
@@ -24,6 +26,11 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
      <span th:text="${userdetails.name}" class="user-name">John Doe</span> 
 </nav>
 
+<!--  <div th:if="${!contacts.isEmpty()}">
+			<h1>Contacts Added by You</h1>
+			</div>-->
+			
+			 
 
 <div class="container-wrapper">
 
@@ -36,6 +43,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     <a href="#" class="item"><i class="fa-solid fa-gear"></i>	SETTINGS </a>
     </div>
     
+   
+    
     
      <div class="content">
 	 
@@ -45,13 +54,27 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
  
 	</div>
 	
+	<div class="searchBar">
+			
+                <input type="text" th:onkeyup="search()" id="search-input" name="search" placeholder="Search contacts...">
+                <div class="searchResult">
+                
+                <p>njasdnc</p>
+                	
+                </div>
+
+	</div>
+	
+	 
+	
 	
 		<div class="container1">
 			
 			<div th:if="${contacts.isEmpty()}">
 			<p>Nothing to show, Try adding contacts</p>
-			
 			</div>
+			
+		
 			
 			 <div th:each="contact : ${contacts}" class="card">
             <!-- You can customize the card content based on your Contact entity -->

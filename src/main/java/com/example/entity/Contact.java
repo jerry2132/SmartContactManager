@@ -2,6 +2,8 @@ package com.example.entity;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -36,6 +38,7 @@ public class Contact {
 	private String image;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
+	@JsonIgnore
 	private User user;
 	
 	public Contact() {

@@ -4,6 +4,8 @@
     sidebar.style.width = sidebar.style.width === '200px' ? '0' : '200px';
 }*/
 
+
+
 function toggleSidebar() {
     const sidebar = document.querySelector('.sidebar');
     const content = document.querySelector('.content');
@@ -100,3 +102,50 @@ function deleteUser(id){
   //window.location = "/user/delete/"+cid;
 });
 }
+
+const search = () => {
+
+  console.log("searching......");
+  
+  let query = $("#search-input").val();
+
+  if(query == ""){
+    $(".searchResult").hide();
+  }else {
+	
+	$(".searchResult").empty();
+    $(".searchResult").show();
+    console.log(query);
+
+    let url = `http://localhost:8080/search/${query}`;
+
+    fetch(url)
+    .then((response) => {
+      return response.json();
+    }).then((data) => {
+      console.log(data);
+
+     let text = `<div class='searched-items'>`;
+
+      data.forEach((contact) => {
+        text += `<a href='#'> ${contact.name} </a><br>`;
+      });
+
+      text += `</div>`; 
+       $(".searchResult").html(text);
+
+    }).catch((error) => {
+		console.log("error fetching results",error);
+	});
+  //  $(".searchResult").show();
+  }
+};
+
+$(document).on('click', function (e) {
+    // Check if the clicked element is not within the searchResult or searchBar
+    if (!$(e.target).closest('.searchResult, .searchBar').length) {
+        // If not, hide the searchResult
+        $('.searchResult').hide();
+    }
+});
+
