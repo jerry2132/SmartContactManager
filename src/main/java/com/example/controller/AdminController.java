@@ -41,6 +41,8 @@ import com.example.service.ContactService;
 import com.example.service.UserService;
 import com.example.userdetails.CustomUserDetailsServiceImpl;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 //import java.util.Set;
 //
 //import  org.springframework.security.core.Authentication;
@@ -88,7 +90,7 @@ public class AdminController {
 	
 	
 	@RequestMapping("/dashboard")
-	public String dashboard(Model model, Principal principal) {
+	public String dashboard(HttpServletRequest request,Model model, Principal principal) {
 		
 //		 Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 //		 if (auth != null) {
@@ -103,14 +105,35 @@ public class AdminController {
 //		UserDetails userDetails  = customUserDetailsServiceImpl.loadUserByUsername(principal.getName());
 //		
 //		model.addAttribute("userdetails", userDetails);
+		if(request != null) {
+			
+			boolean isActive = request.getRequestURI().endsWith("/admin/dashboard");
+			System.out.println("dashboard "+isActive);
+			model.addAttribute("request", isActive);
+		}else
+			model.addAttribute("request", false);
+		
+		//System.out.println(b);
+//		model.addAttribute("httpServletRequest", request);
+		
+	//	model.addAttribute("isActive",b);
 		 return "admin/admin_dashboard";
 	}
 	
 	@GetMapping("/add-contacts")
-	public String addContacts(Model model) {
+	public String addContacts(Model model,HttpServletRequest request) {
 		
 		model.addAttribute("contact", new Contact());
 		model.addAttribute("addContact", true);
+		
+		if(request != null) {
+			
+			boolean isActive = request.getRequestURI().endsWith("/admin/add-contacts");
+			System.out.println("addcontacts "+isActive);
+			model.addAttribute("request", isActive);
+		}else
+			model.addAttribute("request", false);
+		
 		return "admin/add_contacts_admin";
 	}
 	
@@ -215,7 +238,7 @@ public class AdminController {
 	}
 	
 	@GetMapping("/view-contacts/{page}")
-	public String viewContacts(@PathVariable("page") Integer page,Model model,Principal principal) {
+	public String viewContacts(@PathVariable("page") Integer page,Model model,Principal principal,HttpServletRequest request) {
 		
 		UserDetails userDetails  = customUserDetailsServiceImpl.loadUserByUsername(principal.getName());
 		User user = userService.findByEmail(userDetails.getUsername());
@@ -225,9 +248,20 @@ public class AdminController {
 		Page<Contact> contacts = contactRepository.findContactsByUser(user, pageable);
 		
 		//System.out.println(page);
+		if(request != null) {
+			
+			boolean isActive = request.getRequestURI().endsWith("/admin/view-contacts/0");
+			System.out.println("view  "+isActive);
+			model.addAttribute("request", isActive);
+		}else
+			model.addAttribute("request", false);
+			
+		
+		
 		model.addAttribute("contacts", contacts);
 		model.addAttribute("currentPage",page);
 		model.addAttribute("totalPages" , contacts.getTotalPages());
+		
 		
 		return "admin/view-contacts";
 	}
@@ -313,12 +347,20 @@ public class AdminController {
 	}
 	
 	@GetMapping("/profile")
-	public String profile(Model model,Principal principal) {
+	public String profile(Model model,Principal principal,HttpServletRequest request) {
 		
 		UserDetails userDetails  = customUserDetailsServiceImpl.loadUserByUsername(principal.getName());
 		User user = userService.findByEmail(userDetails.getUsername());
 		
 		model.addAttribute("user",user);
+		
+		if(request != null) {
+			
+			boolean isActive = request.getRequestURI().endsWith("/admin/profile");
+			System.out.println("profile "+isActive);
+			model.addAttribute("request", isActive);
+		}else
+			model.addAttribute("request", false);
 		
 		return "admin/profile";
 	}

@@ -170,6 +170,12 @@ nav a:hover {
     cursor: pointer;
 }
 
+.sidebar a.active {
+	
+	background-color: #EF2632; /* Set the desired background color for the active link */
+    color: white; 
+}
+
 .content {
     margin-left: 200px; /* Adjust to the width of the sidebar */
     padding: 50px 20px;

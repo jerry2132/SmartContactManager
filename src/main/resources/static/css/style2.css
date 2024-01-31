@@ -167,6 +167,7 @@ z-index:2;
 	position:absolute;
 	text-align:left;
 	z-index: 2;
+	text-decoration: underline;
 	/*background: #FFCC99;*/
 	width:400px;
 	height:150px;

@@ -37,7 +37,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
   <div class="sidebar">
     <span class="close-btn" onclick="toggleSidebar()">×</span>
     <a href="#" th:href="@{/admin/dashboard}" class="item"><i class="fa-solid fa-house"></i>	HOME </a>
-    <a href="#" th:href="@{/admin/view-contacts/0}" class="item"> <i class="fa-solid fa-address-book"></i>	VIEW CONTACTS </a>
+    <a href="#" th:href="@{/admin/view-contacts/0}" class="item" th:class="${request ? 'active' : ''}"> <i class="fa-solid fa-address-book"></i>	VIEW CONTACTS </a>
     <a href="#" th:href="@{/admin/add-contacts}" class="item"><i class="fa-solid fa-user-plus"></i>	ADD CONTACTS </a>
     <a href="#" th:href="@{/admin/profile}" class="item"><i class="fa-solid fa-user"></i>	YOUR PROFILE </a>
     <a href="#" class="item"><i class="fa-solid fa-gear"></i>	SETTINGS </a>

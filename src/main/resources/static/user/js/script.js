@@ -125,7 +125,7 @@ const search = () => {
      let text = `<div class='searched-items'>`;
 
       data.forEach((contact) => {
-        text += `<a href='#'> ${contact.name} </a><br>`;
+        text += `<a href='/user/details/${contact.cid}'> ${contact.name} </a><br>`;
       });
 
       text += `</div>`; 
