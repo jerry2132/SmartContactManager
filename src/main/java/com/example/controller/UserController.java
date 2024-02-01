@@ -116,6 +116,9 @@ public class UserController {
 		return "user/contact-status";
 	}
 	
+	
+	
+	
 	@GetMapping("/add-contacts")
 	public String addContacts(Model model,HttpServletRequest request) {
 		
@@ -133,6 +136,9 @@ public class UserController {
 		
 		return "user/add_contacts_user";
 	}
+	
+	
+	
 		
 		@PostMapping("process-contact")
 		public String saveContact(@ModelAttribute Contact contact,@RequestParam("imageFile") MultipartFile file,
@@ -243,7 +249,7 @@ public class UserController {
 //			
 			if(request != null) {
 				
-				boolean isActive = request.getRequestURI().endsWith("/user/view-contacts/0");
+				boolean isActive = request.getRequestURI().endsWith("/user/view-contacts/"+page);
 				System.out.println("profile "+isActive);
 				model.addAttribute("request", isActive);
 			}else
@@ -253,6 +259,9 @@ public class UserController {
 			
 			return "user/view-contacts";
 		}
+		
+		
+		
 		
 		
 		// Add this method to your controller
@@ -314,8 +323,12 @@ public class UserController {
 		}
 
 		
+		
+		
+		
 		@GetMapping("/update-contact/{cid}")
-		public String updateContact(@PathVariable("cid")Integer contactId,Model model,Principal principal) {
+		public String updateContact(@PathVariable("cid")Integer contactId,Model model,Principal principal,
+				HttpServletRequest request) {
 			
 			UserDetails userDetails = customUserDetailsServiceImpl.loadUserByUsername(principal.getName());
 			User user = userService.findByEmail(userDetails.getUsername());
@@ -325,6 +338,16 @@ public class UserController {
 			
 			if(user.getId() == contact.getUser().getId())
 				model.addAttribute("contact", contact);
+			
+			
+				if(request != null) {
+				
+					boolean isActive = request.getRequestURI().endsWith("/user/update-contacts/" + contactId);
+					System.out.println("update  "+isActive);
+					model.addAttribute("request", isActive);
+			}else
+				model.addAttribute("request", false);
+			
 			
 			return "user/add_contacts_user";
 		}

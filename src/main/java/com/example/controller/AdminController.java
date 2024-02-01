@@ -250,7 +250,7 @@ public class AdminController {
 		//System.out.println(page);
 		if(request != null) {
 			
-			boolean isActive = request.getRequestURI().endsWith("/admin/view-contacts/0");
+			boolean isActive = request.getRequestURI().endsWith("/admin/view-contacts/"+page);
 			System.out.println("view  "+isActive);
 			model.addAttribute("request", isActive);
 		}else
@@ -296,12 +296,23 @@ public class AdminController {
 		return "redirect:/admin/view-contacts/0";
 	}
 	
+	
+	
+	
 	@GetMapping("/update-contact/{cid}")
-	public String updateContact(@PathVariable("cid")Integer contactId,Model model) {
+	public String updateContact(@PathVariable("cid")Integer contactId,Model model,HttpServletRequest request) {
 		
 		Contact contact = contactRepository.findById(contactId).get();
 		model.addAttribute("addContact", false);
 		model.addAttribute("contact", contact);
+		
+		if(request != null) {
+			
+			boolean isActive = request.getRequestURI().endsWith("/admin/update-contact/"+contactId);
+			System.out.println("update contacts  "+isActive);
+			model.addAttribute("request1", isActive);
+		}else
+			model.addAttribute("request1", false);
 		
 		return "admin/add_contacts_admin";
 	}
