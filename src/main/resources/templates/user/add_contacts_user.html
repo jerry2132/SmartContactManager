@@ -2,7 +2,6 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>User Add Contacts</title>
 <link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet">
 <link rel="stylesheet" 
@@ -26,7 +25,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     <span class="close-btn" onclick="toggleSidebar()">×</span>
     <a href="#" th:href="@{/user/dashboard}" class="item"><i class="fa-solid fa-house"></i> HOME </a>
     <a href="#" th:href="@{/user/view-contacts/0}" class="item"> <i class="fa-solid fa-address-book"></i> VIEW CONTACTS </a>
-    <a href="#" th:href="@{/user/add-contacts}" class="item" th:class="${request ? 'active' : ''}"><i class="fa-solid fa-user-plus"></i> ADD CONTACTS </a>
+    <a href="#" th:href="@{/user/add-contacts}" class="item" th:class="${request != null && request || request1 != null && request1 ? 'active' : ''}"><i class="fa-solid fa-user-plus"></i> ADD CONTACTS </a>
     <a href="#" th:href="@{/user/profile}" class="item"><i class="fa-solid fa-user"></i> YOUR PROFILE </a>
     <a href="#" class="item"><i class="fa-solid fa-gear"></i> SETTINGS </a>
     </div>
@@ -71,7 +70,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
             <input th:value="${contact.email}" type="email" id="email" name="email" placeholder="enter your email" required><br>
             
             <label for="description">DESCRIPTION</label>
-            <textarea th:text="${contact.description}" id="description" name="description" rows="8" cols="50" placeholder="enter your description" required></textarea><br>
+            <textarea th:text="${contact.description}" id="description" name="description" rows="15" cols="10" placeholder="enter your description" required></textarea><br>
 
 			<img th:if="${!addContact}"src="" th:src="@{'/img/' + ${contact.image}}" class="imageContact" alt="">
 			

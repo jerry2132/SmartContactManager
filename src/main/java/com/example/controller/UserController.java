@@ -68,6 +68,9 @@ public class UserController {
 	@Autowired
 	private UserRepository userRepository;
 	
+	
+	
+	
 	@ModelAttribute
 	public void commonDashboard(Model model,Principal principal) {
 		
@@ -76,6 +79,11 @@ public class UserController {
 		
 		model.addAttribute("userdetails", userDetails);
 	}
+	
+	
+	
+	
+	
 	
 	@RequestMapping("/dashboard")
 	public String dashboard(HttpServletRequest request,Model model) {
@@ -100,7 +108,7 @@ public class UserController {
 		if(request != null) {
 			
 			boolean isActive = request.getRequestURI().endsWith("/user/dashboard");
-			System.out.println("profile "+isActive);
+//			System.out.println("profile "+isActive);
 			model.addAttribute("request", isActive);
 		}else
 			model.addAttribute("request", false);
@@ -119,6 +127,9 @@ public class UserController {
 	
 	
 	
+	
+	
+	
 	@GetMapping("/add-contacts")
 	public String addContacts(Model model,HttpServletRequest request) {
 		
@@ -128,7 +139,7 @@ public class UserController {
 		if(request != null) {
 			
 			boolean isActive = request.getRequestURI().endsWith("/user/add-contacts");
-			System.out.println("profile "+isActive);
+//			System.out.println("profile "+isActive);
 			model.addAttribute("request", isActive);
 		}else
 			model.addAttribute("request", false);
@@ -136,6 +147,8 @@ public class UserController {
 		
 		return "user/add_contacts_user";
 	}
+	
+	
 	
 	
 	
@@ -222,6 +235,11 @@ public class UserController {
 			return "redirect:/user/contact-status";
 		}
 		
+		
+		
+		
+		
+		
 		@GetMapping("/view-contacts/{page}")
 		public String viewContacts(@PathVariable("page") Integer page ,Model model,Principal principal,
 				HttpServletRequest request) {
@@ -250,7 +268,7 @@ public class UserController {
 			if(request != null) {
 				
 				boolean isActive = request.getRequestURI().endsWith("/user/view-contacts/"+page);
-				System.out.println("profile "+isActive);
+//				System.out.println("profile "+isActive);
 				model.addAttribute("request", isActive);
 			}else
 				model.addAttribute("request", false);
@@ -259,6 +277,8 @@ public class UserController {
 			
 			return "user/view-contacts";
 		}
+		
+		
 		
 		
 		
@@ -282,6 +302,12 @@ public class UserController {
 		    return "user/details";
 		}
 		
+		
+		
+		
+		
+		
+	
 		@GetMapping("/delete/{cid}")
 		public String deleteContact(@PathVariable("cid")Integer contactId,Model model,Principal principal,RedirectAttributes redirectAttributes) {
 			
@@ -326,6 +352,9 @@ public class UserController {
 		
 		
 		
+		
+		
+		
 		@GetMapping("/update-contact/{cid}")
 		public String updateContact(@PathVariable("cid")Integer contactId,Model model,Principal principal,
 				HttpServletRequest request) {
@@ -342,15 +371,21 @@ public class UserController {
 			
 				if(request != null) {
 				
-					boolean isActive = request.getRequestURI().endsWith("/user/update-contacts/" + contactId);
-					System.out.println("update  "+isActive);
-					model.addAttribute("request", isActive);
+					boolean isActive = request.getRequestURI().endsWith("/user/update-contact/" + contactId);
+//					System.out.println("update  "+isActive);
+					model.addAttribute("request1", isActive);
 			}else
-				model.addAttribute("request", false);
+				model.addAttribute("request1", false);
 			
 			
 			return "user/add_contacts_user";
 		}
+		
+		
+		
+		
+		
+		
 		
 		
 		@PostMapping("/process-update/{cid}")
@@ -391,6 +426,11 @@ public class UserController {
 		return "redirect:/user/contact-status";
 		}
 		
+		
+		
+		
+		
+		
 		@GetMapping("/profile")
 		public String profile(Model model,Principal principal,HttpServletRequest request) {
 			
@@ -402,7 +442,7 @@ public class UserController {
 			if(request != null) {
 				
 				boolean isActive = request.getRequestURI().endsWith("/user/profile");
-				System.out.println("profile "+isActive);
+//				System.out.println("profile "+isActive);
 				model.addAttribute("request", isActive);
 			}else
 				model.addAttribute("request", false);
@@ -410,6 +450,12 @@ public class UserController {
 			
 			return "user/profile";
 		}
+		
+		
+		
+		
+		
+		
 		
 		@GetMapping("/deleteUser/{id}")
 		public String deleteUser(@PathVariable("id")Integer userId,Model model,RedirectAttributes redirectAttributes) {
@@ -426,6 +472,12 @@ public class UserController {
 			return "redirect:/signup";
 			
 		}
+		
+		
+		
+		
+		
+		
 		
 		@GetMapping("/update-user/{id}")
 		public String updateUser(@PathVariable("id")Integer userId,Model model,Principal principal) {
@@ -463,6 +515,12 @@ public class UserController {
 			}else
 				return "redirect:/error";
 		}
+		
+		
+		
+		
+		
+		
 		
 		@PostMapping("/process-update-user/{id}")
 	    public String processUpdateUser(@PathVariable("id") Integer userId,@ModelAttribute User updatedUser,

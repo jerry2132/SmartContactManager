@@ -6,10 +6,12 @@ body {
 	margin: 0;
 	background-color: #FFCC99;
 	background-size: cover;
+	overflow-x: auto;
 }
 
 .container {
-	max-width: 600px;
+	   width: 800px;
+    display: inline-block;
 	/*max-height: 200px;*/
 	/*width: 10%;*/
 	margin: 0px 0px 60px 450px;
@@ -20,6 +22,10 @@ body {
 	background-color: #fff;
 	padding: 20px;
 	border-radius: 8px;
+	
+	margin-right:100px;
+	margin-left:0px;
+	/*margin: 0 auto;*/
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 input, textarea {
@@ -38,6 +44,7 @@ input, textarea {
 }
 
 
+
 label {
 	display: block;
 	margin-bottom: 8px;
@@ -48,8 +55,13 @@ input[type="submit"] {
 	background-color: #4caf50;
 	color: white;
 	cursor: pointer;
+	font-weight: bold;
 }
 
+input[type="reset"] {
+	cursor: pointer;
+	font-weight: bold;
+}
 
 nav {
 	position:fixed;
@@ -95,9 +107,13 @@ h2 {
 	/*text-align: center;*/
 	color: #000000;
 	font-weight: bold;
-	/*margin: 0px 0px 200px 225px;*/
+	/*margin: 0px 0px 200px 225px;
 	margin-top: 200px;
-	margin-left: 450px;
+	margin-left: 450px;*/
+	
+	text-align: center;
+	margin-top:200px;
+	
 }
 
 p {
@@ -109,14 +125,15 @@ p {
 	align-items: center;
 }
 
-input[type="button"] {
+.home input[type="button"] {
 	background-color: #000000;
 	/*background-color: rgba(0, 0, 0, 1);*/
 	color: #fff;
 	cursor: pointer;
 	font-weight: bold;
 	border-radius: 40px;
-	margin-left: 550px;
+	justify-content:centerr;
+	
 }
 
 nav a:hover {

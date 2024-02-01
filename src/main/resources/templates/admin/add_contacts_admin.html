@@ -2,7 +2,6 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin Add contacts </title>
 <!--  <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script> -->
 
@@ -89,7 +88,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
             <input th:value="${contact.email}" type="email" id="email" name="email" placeholder="enter your email" required><br> <br>
             
             <label for="description">DESCRIPTION</label>
-            <textarea th:text="${contact.description}" id="description" name="description" rows="15" cols="50" placeholder="enter your description" required></textarea><br>
+            <textarea th:text="${contact.description}" id="description" name="description" rows="15" cols="10" placeholder="enter your description" required></textarea><br>
 				
 			<img th:if="${!addContact}"src="" th:src="@{'/img/' + ${contact.image}}" class="imageContact" alt="">
 				

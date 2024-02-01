@@ -89,6 +89,11 @@ public class AdminController {
 	}
 	
 	
+	
+	
+	
+	
+	
 	@RequestMapping("/dashboard")
 	public String dashboard(HttpServletRequest request,Model model, Principal principal) {
 		
@@ -108,7 +113,7 @@ public class AdminController {
 		if(request != null) {
 			
 			boolean isActive = request.getRequestURI().endsWith("/admin/dashboard");
-			System.out.println("dashboard "+isActive);
+			//System.out.println("dashboard "+isActive);
 			model.addAttribute("request", isActive);
 		}else
 			model.addAttribute("request", false);
@@ -120,6 +125,10 @@ public class AdminController {
 		 return "admin/admin_dashboard";
 	}
 	
+	
+	
+	
+	
 	@GetMapping("/add-contacts")
 	public String addContacts(Model model,HttpServletRequest request) {
 		
@@ -129,7 +138,7 @@ public class AdminController {
 		if(request != null) {
 			
 			boolean isActive = request.getRequestURI().endsWith("/admin/add-contacts");
-			System.out.println("addcontacts "+isActive);
+			//System.out.println("addcontacts "+isActive);
 			model.addAttribute("request", isActive);
 		}else
 			model.addAttribute("request", false);
@@ -137,11 +146,19 @@ public class AdminController {
 		return "admin/add_contacts_admin";
 	}
 	
+	
+	
+	
+	
 	@GetMapping("/contact-status")
 	public String showContactStatus() {
 	    return "admin/contact-status";
 	}
 
+	
+	
+	
+	
 	
 	@PostMapping("/process-contact")
 	public String saveContact(@ModelAttribute Contact contact, @RequestParam("imageFile") MultipartFile file,
@@ -237,6 +254,11 @@ public class AdminController {
 		return "redirect:/admin/contact-status";
 	}
 	
+	
+	
+	
+	
+	
 	@GetMapping("/view-contacts/{page}")
 	public String viewContacts(@PathVariable("page") Integer page,Model model,Principal principal,HttpServletRequest request) {
 		
@@ -251,7 +273,7 @@ public class AdminController {
 		if(request != null) {
 			
 			boolean isActive = request.getRequestURI().endsWith("/admin/view-contacts/"+page);
-			System.out.println("view  "+isActive);
+			//System.out.println("view  "+isActive);
 			model.addAttribute("request", isActive);
 		}else
 			model.addAttribute("request", false);
@@ -265,6 +287,11 @@ public class AdminController {
 		
 		return "admin/view-contacts";
 	}
+	
+	
+	
+	
+	
 	
 	@GetMapping("/details/{cid}")
 	public String showIndividualContactDetails(@PathVariable("cid")int contactId,Model model,Principal principal) {
@@ -280,6 +307,11 @@ public class AdminController {
 		
 		return "admin/details";
 	}
+	
+	
+	
+	
+	
 	
 	@GetMapping("/delete/{cid}")
 	public String deleteContact(@PathVariable("cid")Integer contactId,Model model,RedirectAttributes redirectAttributes) {
@@ -299,6 +331,8 @@ public class AdminController {
 	
 	
 	
+	
+	
 	@GetMapping("/update-contact/{cid}")
 	public String updateContact(@PathVariable("cid")Integer contactId,Model model,HttpServletRequest request) {
 		
@@ -309,13 +343,16 @@ public class AdminController {
 		if(request != null) {
 			
 			boolean isActive = request.getRequestURI().endsWith("/admin/update-contact/"+contactId);
-			System.out.println("update contacts  "+isActive);
+			//System.out.println("update contacts  "+isActive);
 			model.addAttribute("request1", isActive);
 		}else
 			model.addAttribute("request1", false);
 		
 		return "admin/add_contacts_admin";
 	}
+	
+	
+	
 	
 	
 	
@@ -357,6 +394,12 @@ public class AdminController {
 	return "redirect:/admin/contact-status";
 	}
 	
+	
+	
+	
+	
+	
+	
 	@GetMapping("/profile")
 	public String profile(Model model,Principal principal,HttpServletRequest request) {
 		
@@ -368,13 +411,19 @@ public class AdminController {
 		if(request != null) {
 			
 			boolean isActive = request.getRequestURI().endsWith("/admin/profile");
-			System.out.println("profile "+isActive);
+			//System.out.println("profile "+isActive);
 			model.addAttribute("request", isActive);
 		}else
 			model.addAttribute("request", false);
 		
 		return "admin/profile";
 	}
+	
+	
+	
+	
+	
+	
 	
 	@GetMapping("/deleteUser/{id}")
 	public String deleteUser(@PathVariable("id")Integer userId,Model model,RedirectAttributes redirectAttributes) {
@@ -391,6 +440,12 @@ public class AdminController {
 		return "redirect:/signup";
 		
 	}
+	
+	
+	
+	
+	
+	
 	
 	@GetMapping("/update-user/{id}")
 	public String updateUserForm(@PathVariable("id")Integer userId,Model model,Principal principal) {
@@ -450,6 +505,14 @@ public class AdminController {
 		
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
 	@PostMapping("/process-update-user/{id}")
     public String processUpdateUser(@PathVariable("id") Integer userId,@ModelAttribute User updatedUser,
     		@RequestParam("imageUrl")MultipartFile file,Principal principal,RedirectAttributes redirectAttributes) {
@@ -494,10 +557,6 @@ public class AdminController {
 					redirectAttributes.addFlashAttribute("errorMessage", "Error saving contact: "+e.getMessage());
 				}
 				
-				
-			
-				
-			
 			
 		}
 			
