@@ -13,7 +13,7 @@
 	</nav>
 
 
-	<div class="container">
+	<div class="signupContainer">
 
  	
     
@@ -44,7 +44,7 @@
 				
 				<label for="about">ABOUT </label>
 				<textarea th:field="*{about}" id="about" name="about" placeholder="enter about yourself"
-				rows="4"></textarea>
+				rows="10"></textarea>
 				<span  th:if="${#fields.hasErrors('about')}" th:errors="*{about}"></span> 
 
 				<img th:if="${!updateUser}"src="" th:src="@{'/registeredImage/' + ${user.imgUrl}}" class="imageUser" alt="">			
@@ -53,7 +53,7 @@
             	<input type="file" id="image" name="imageUrl" ><br>
 					
 					
-				<div class="input-container">
+				<div th:if="${updateUser}" class="input-container">
             <input th:field="*{enabled}" type="checkbox" id="acceptTerms" name="enabled" required>
              <label for="acceptTerms">I accept the terms and conditions</label>
              <span  th:if="${#fields.hasErrors('enabled')}" th:errors="*{enabled}"></span>
@@ -61,6 +61,9 @@
         		
 				<input type="submit" th:value="${updateUser ? 'REGISTER' : 'UPDATE USER'}"> 
 				<input type="reset" value="Reset">
+				
+				<span th:if="${updateUser}">Already a user <a th:href="@{/login}"> SignIn here</a></span>
+				
 		</form>
 	</div>
 

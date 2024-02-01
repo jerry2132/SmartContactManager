@@ -14,7 +14,20 @@
 </nav>
 
 
-<div class="container">
+<div class="loginContainer">
+
+  <div th:if="${error != null}">
+    <div class="message">
+        <span th:utext="${error}"></span>
+    </div>
+</div>
+	
+    <div th:if="${param.logout}">
+			<div class="message">
+			<span>Logout successfull</span>
+			</div>
+			</div>
+
     <h2>LOGIN</h2>
     
     <!-- Display error message if login fails 
@@ -35,17 +48,7 @@
     </div>-->
     
     
-    <div th:if="${error != null}">
-    <div class="error-message">
-        <p th:utext="${error}"></p>
-    </div>
-</div>
-	
-    <div th:if="${param.logout}">
-			<div class="logout-message">
-			<p>Logout successfull</p>
-			</div>
-			</div>
+  
 			
     <form th:action="@{/login}" method="post">
         <label for="username">EMAIL</label>
@@ -55,6 +58,7 @@
         <input type="password" id="password" name="password" placeholder="enter your password" required>
         
         <input type="submit" value="LOGIN">
+        <span><a th:href="@{/signup}"> CREATE YOUR ACCOUNT</a> </span>
     </form>
 </div>
 

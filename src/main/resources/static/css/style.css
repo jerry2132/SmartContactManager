@@ -120,9 +120,9 @@ p {
 	color: #000000;
 	font-weight: bold;
 	/*margin: 0px 0px 200px 225px;*/
-	/*margin-top: 250px;*/
-	margin-left: 300px;
-	align-items: center;
+	/*margin-top: 250px;
+	margin-left: 300px;*/
+	text-align: center;
 }
 
 .home input[type="button"] {
