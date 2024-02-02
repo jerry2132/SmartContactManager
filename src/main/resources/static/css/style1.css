@@ -195,3 +195,37 @@ nav a:hover {
     color: 	#5A5A5A;
     font-weight: bold;
 }
+
+
+.forgotContainer {
+	
+	  max-width: 600px;
+    margin: 80px auto;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    background-color: #f5f5f5;
+    text-align: center;
+}
+
+.forgotContainer form {
+	
+    display: flex;
+    flex-direction: column;
+}
+
+.forgotContainer input {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0 15px 0;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-style:italic;
+}
+
+.forgotContainer input[type="submit"]:hover {
+	font-weight: bold;
+    background-color: #45a049;
+    cursor: pointer;
+}
