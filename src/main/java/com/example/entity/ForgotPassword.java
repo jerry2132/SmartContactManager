@@ -23,6 +23,9 @@ private Long id;
 @Column(nullable = false)
 private String token;
 
+@Column(nullable = false)
+private String otp;
+
 @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
 @JoinColumn(nullable = false , name = "user_id")
 private User user;
@@ -72,6 +75,14 @@ public boolean isUsed() {
 
 public void setUsed(boolean isUsed) {
 	this.isUsed = isUsed;
+}
+
+public String getOtp() {
+	return otp;
+}
+
+public void setOtp(String otp) {
+	this.otp = otp;
 }
 
 

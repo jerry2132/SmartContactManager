@@ -92,6 +92,7 @@ public class ForgotPasswordService {
 		return "reset-password";
 	}
 	
+	
 	public void sendOtp(String to, String subject, String otp) throws MessagingException, UnsupportedEncodingException {
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
