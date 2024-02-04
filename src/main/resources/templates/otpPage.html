@@ -9,7 +9,11 @@
 <body>
 
 
-		
+		<nav>
+		<span>SMART CONTACT MANAGER</span> <a th:href="@{login}">LOGIN</a> <a
+			th:href="@{/signup}">SIGNUP</a> <a th:href="@{/base}">HOME</a> <a
+			href="#about">ABOUT</a>
+</nav>
 		<div class="forgotContainer">
 
 			
@@ -30,7 +34,7 @@
         
         <h2> ENTER OTP </h2>
         
-        <input type="email" id="email" name="email"  placeholder="enter email" required><br>
+        <input type="email" id="email" name="email" placeholder="enter your mail" required><br>
         
         <input type="number" id="otp" name="otp" placeholder="enter OTP" required><br>
         

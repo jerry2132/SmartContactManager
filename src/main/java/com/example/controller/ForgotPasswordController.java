@@ -4,10 +4,13 @@ import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -43,6 +46,8 @@ public class ForgotPasswordController {
 	
 	  @Autowired
 	  private ForgotPasswordRepository forgotPasswordRepository;
+	  
+
 	
 	@GetMapping("/forgotPassword")
 	public String showForgotPassword() {
@@ -86,23 +91,34 @@ public class ForgotPasswordController {
 	}
 	
 	@PostMapping("/verify-Otp")
-	public String verifyOtp(@RequestParam("email")String email, @RequestParam("otp")String entredOtp, Model model,
-			Principal principal) {
-//		
-//		UserDetails userDetails  = customUserDetailsServiceImpl.loadUserByUsername(principal.getName());
-//		User user = userService.findByEmail(userDetails.getUsername());
-//		
-//		model.addAttribute("user", user);
+	public String verifyOtp(@RequestParam("otp")String enteredOtp,@RequestParam("email")String email,
+			Model model) {
 		
-		if(forgotPasswordService.verifyOtp(email, entredOtp)) {
-			return "newPassword";
-		}else {
 			
-			model.addAttribute("error", "Invalid Otp");
-			return "otpPage";
+			
+//			UserDetails userDetails  = customUserDetailsServiceImpl.loadUserByUsername(principal.getName());
+//			//User user = userService.findByEmail(userDetails.getUsername());
+//			String email = userDetails.getUsername();
+//			System.out.println("verify-otp mail"+email);
+//			model.addAttribute("email", email);
+////			model.addAttribute("user", user);
+			
+		
+
+	        if (forgotPasswordService.verifyOtp(email, enteredOtp)) {
+	            return "newPassword";
+	        } else {
+	            model.addAttribute("error", "Invalid Otp");
+	            return "otpPage";
+	        }
+	    
+
+			
 		}
 		
-	}
+		
+		
+	
 	
 	
 	@PostMapping("/change-password")
