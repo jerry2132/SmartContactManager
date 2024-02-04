@@ -1,8 +1,10 @@
 package com.example.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,8 +13,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.entity.ForgotPassword;
 import com.example.entity.User;
+import com.example.repository.ForgotPasswordRepository;
+import com.example.repository.UserRepository;
 import com.example.service.ForgotPasswordService;
 import com.example.service.UserService;
+import com.example.userdetails.CustomUserDetailsServiceImpl;
 
 import jakarta.mail.MessagingException;
 
@@ -25,11 +30,19 @@ public class ForgotPasswordController {
 	@Autowired
 	private User user;
 	
+	private CustomUserDetailsServiceImpl customUserDetailsServiceImpl;
+	
+	@Autowired
+	private UserRepository userRepository;
+	
 	@Autowired
 	private ForgotPassword forgotPassword;
 	
 	@Autowired
 	private ForgotPasswordService forgotPasswordService;
+	
+	  @Autowired
+	  private ForgotPasswordRepository forgotPasswordRepository;
 	
 	@GetMapping("/forgotPassword")
 	public String showForgotPassword() {
@@ -49,12 +62,16 @@ public class ForgotPasswordController {
 			return "forgotPassword";
 		}
 		
-		
+		System.out.println("email " + user.getEmail());
 		forgotPassword.setExpireTime(forgotPasswordService.expireTimeRange());
+		System.out.println("Expire Time "+forgotPassword.getExpireTime());
 		forgotPassword.setToken(forgotPasswordService.generateToken());
+		System.out.println("Token = "+forgotPassword.getToken());
 		forgotPassword.setUser(user);
 		forgotPassword.setOtp(forgotPasswordService.generateOtp());
 		forgotPassword.setUsed(false);
+		
+		forgotPasswordRepository.save(forgotPassword);
 		
 		try {
 	        // Send OTP instead of email link
@@ -69,10 +86,22 @@ public class ForgotPasswordController {
 	}
 	
 	@PostMapping("/verify-Otp")
-	public String verifyOtp() {
+	public String verifyOtp(@RequestParam("email")String email, @RequestParam("otp")String entredOtp, Model model,
+			Principal principal) {
+//		
+//		UserDetails userDetails  = customUserDetailsServiceImpl.loadUserByUsername(principal.getName());
+//		User user = userService.findByEmail(userDetails.getUsername());
+//		
+//		model.addAttribute("user", user);
 		
+		if(forgotPasswordService.verifyOtp(email, entredOtp)) {
+			return "newPassword";
+		}else {
+			
+			model.addAttribute("error", "Invalid Otp");
+			return "otpPage";
+		}
 		
-		return "newPassword";
 	}
 	
 	

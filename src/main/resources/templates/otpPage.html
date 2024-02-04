@@ -12,9 +12,26 @@
 		
 		<div class="forgotContainer">
 
+			
+			<div th:if="${error != null}">
+			<div class="message">
+			<p>[[${error}]]</p>
+			</div>
+			</div>
+		
+		
+		<div th:if="${param.success}">
+			<div class="message">
+			<p>OTP is send to your email</p>
+			</div>
+			</div> 
+
 		 <form th:action="@{/verify-Otp}" method="post">
         
         <h2> ENTER OTP </h2>
+        
+        <input type="email" id="email" name="email"  placeholder="enter email" required><br>
+        
         <input type="number" id="otp" name="otp" placeholder="enter OTP" required><br>
         
        

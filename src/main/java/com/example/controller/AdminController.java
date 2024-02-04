@@ -83,7 +83,7 @@ public class AdminController {
 		UserDetails userDetails  = customUserDetailsServiceImpl.loadUserByUsername(principal.getName());
 		
 		
-		
+
 		model.addAttribute("userdetails", userDetails);
 		
 	}

@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.example.entity.ForgotPassword;
+import com.example.entity.User;
+import com.example.repository.ForgotPasswordRepository;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -26,7 +28,18 @@ public class ForgotPasswordService {
 	@Autowired
 	JavaMailSender javaMailSender;
 	
-	private final int MINUTES = 10;
+	@Autowired
+	private User user;
+	
+	@Autowired
+	private UserService userService;
+	
+	@Autowired
+	private ForgotPasswordRepository forgotPasswordRepository;
+	
+
+	
+	private final int MINUTES = 1;
 	
 	public String generateToken()
 	{
@@ -106,4 +119,27 @@ public class ForgotPasswordService {
         helper.setTo(to);
         javaMailSender.send(message);
     }
+	
+	
+	 public boolean verifyOtp(String email, String enteredOtp) {
+	        User user = userService.findByEmail(email);
+	        System.out.println("Otp email"+user.getEmail());
+	        ForgotPassword forgotPassword = forgotPasswordRepository.findByUser(user);
+	        
+	        System.out.println("forgot password user  "+forgotPassword.getUser());
+	        
+	        ForgotPasswordService forgotPasswordService = new ForgotPasswordService();
+
+	        if (forgotPassword != null && !forgotPassword.isUsed() &&
+	                !forgotPasswordService.isExpired(forgotPassword) &&
+	                forgotPassword.getOtp().equals(enteredOtp)) {
+	            // Mark the token as used
+	            forgotPassword.setUsed(true);
+	            forgotPasswordRepository.save(forgotPassword);
+	            return true;
+	        }
+
+	        return false;
+	    }
+	
 }
