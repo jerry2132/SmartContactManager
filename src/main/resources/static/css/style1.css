@@ -229,3 +229,15 @@ nav a:hover {
     background-color: #45a049;
     cursor: pointer;
 }
+
+
+.forgotContainer .message {
+    margin: 15px 0;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.forgotContainer .message span {
+    color: 	#5A5A5A;
+    font-weight: bold;
+}

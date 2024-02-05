@@ -19,7 +19,7 @@
 			
 			<div th:if="${error != null}">
 			<div class="message">
-			<p>[[${error}]]</p>
+			<span>[[${error}]]</span>
 			</div>
 			</div>
 		
@@ -34,9 +34,9 @@
         
         <h2> ENTER OTP </h2>
         
-        <input type="email" id="email" name="email" placeholder="enter your mail" required><br>
+        <input type="email" id="email" name="email" th:value="${email}" readonly placeholder="enter your mail" required><br>
         
-        <input type="number" id="otp" name="otp" placeholder="enter OTP" required><br>
+        <input type="text" id="otp" name="otp" placeholder="enter OTP" required><br>
         
        
         
