@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.entity.ForgotPassword;
 import com.example.entity.User;
+import com.example.entity.ForgotPassword;
 import com.example.repository.ForgotPasswordRepository;
 import com.example.repository.UserRepository;
 import com.example.service.ForgotPasswordService;
@@ -25,6 +27,8 @@ import com.example.service.UserService;
 import com.example.userdetails.CustomUserDetailsServiceImpl;
 
 import jakarta.mail.MessagingException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class ForgotPasswordController {
@@ -49,7 +53,8 @@ public class ForgotPasswordController {
 	  @Autowired
 	  private ForgotPasswordRepository forgotPasswordRepository;
 	  
-
+	  @Autowired
+	  private PasswordEncoder passwordEncoder;
 	
 	@GetMapping("/forgotPassword")
 	public String showForgotPassword() {
@@ -129,7 +134,7 @@ public class ForgotPasswordController {
 		 
 
 			 if (forgotPasswordService.verifyOtp(email, enteredOtp)) {
-		            return "newPassword";
+		            return "redirect:/show-change-password?success&token=" + forgotPassword.getToken();
 		        }else {
 		            model.addAttribute("error", "Invalid Otp ");
 		            return "otpPage";
@@ -139,12 +144,47 @@ public class ForgotPasswordController {
 		}
 		
 		
+	@GetMapping("/show-change-password")	
+	public String showChangePassword(@RequestParam("token")String token,Model model,HttpSession session) {
 		
-	
+		session.setAttribute("token", token);
+		
+		forgotPassword = forgotPasswordRepository.findByToken(token);
+		return forgotPasswordService.checkValidity(forgotPassword, model);
+	}
 	
 	
 	@PostMapping("/change-password")
-	public String changePassword() {
+	public String changePassword(HttpServletRequest request, HttpSession session, Model model) {
+		
+		String newPassword = request.getParameter("newPassword");
+		String confirmPassword = request.getParameter("confirmPassword");
+		System.out.println("new pass  "+newPassword);
+		System.out.println("confrim pass "+confirmPassword);
+		
+		if (!newPassword.equals(confirmPassword)) {
+	        model.addAttribute("error", "Passwords do not match");
+	        
+	        return "newPassword";
+	    }
+		
+	
+		
+		String token = (String)session.getAttribute("token");
+		
+		forgotPassword = forgotPasswordRepository.findByToken(token);
+		User user = forgotPassword.getUser();
+		System.out.println("password emial  " + user.getEmail());
+		
+		user.setPassword(newPassword);
+		
+		System.out.println("password "+user.getPassword());
+		forgotPassword.setUsed(true);
+		userService.save(user);
+		forgotPasswordRepository.save(forgotPassword);
+		
+		model.addAttribute("error", "password changed successfully");
+		
 		
 		return "login";
 		

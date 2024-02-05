@@ -88,21 +88,21 @@ public class ForgotPasswordService {
 		if(forgotPassword == null)
 		{
 			model.addAttribute("error", "Invalid Token");
-			return "error-page";
+			return "error";
 		}
 		
 		else if(forgotPassword.isUsed())
 		{
 			model.addAttribute("error", "Already Used");
-			return "error-page";
+			return "error";
 		}
 		else if (isExpired(forgotPassword))
 		{
 			model.addAttribute("error", "Token Expired");
-			return "error-page";
+			return "error";
 		}
 		
-		return "reset-password";
+		return "newPassword";
 	}
 	
 	
@@ -134,7 +134,7 @@ public class ForgotPasswordService {
 	                !forgotPasswordService.isExpired(forgotPassword) &&
 	                forgotPassword.getOtp().equals(enteredOtp)) {
 	            // Mark the token as used
-	            forgotPassword.setUsed(true);
+//	            forgotPassword.setUsed(true);
 	            forgotPasswordRepository.save(forgotPassword);
 	            return true;
 	        }

@@ -18,9 +18,12 @@
 
   <div th:if="${error != null}">
     <div class="message">
-        <span th:utext="${error}"></span>
+        <span th:text="${error}"></span>
     </div>
 </div>
+	
+
+	
 	
     <div th:if="${param.logout}">
 			<div class="message">
